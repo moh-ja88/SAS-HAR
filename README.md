@@ -29,7 +29,7 @@ A unified framework for **temporal segmentation** and **activity recognition** u
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/sas-har.git
+git clone https://github.com/moh-ja88/sas-har.git
 cd sas-har
 
 # Create virtual environment
