@@ -1,0 +1,54 @@
+[
+  {
+    "dataset": "Opportunity",
+    "accuracy": 0.919740777666999,
+    "f1": 0.9345585437366649,
+    "params": 40177,
+    "time": 60.163559675216675,
+    "n_classes": 17,
+    "n_channels": 110,
+    "seq_len": 60,
+    "train_samples": 17585,
+    "test_samples": 6018,
+    "epochs": 30
+  },
+  {
+    "dataset": "UCI-HAR",
+    "accuracy": 0.008,
+    "f1": 0.0002360842404413337,
+    "params": 19974,
+    "time": 5.857539892196655,
+    "n_classes": 6,
+    "n_channels": 9,
+    "seq_len": 128,
+    "train_samples": 2000,
+    "test_samples": 500,
+    "epochs": 30
+  },
+  {
+    "dataset": "WISDM",
+    "accuracy": 0.0,
+    "f1": 0.0,
+    "params": 25926,
+    "time": 6.465956449508667,
+    "n_classes": 6,
+    "n_channels": 3,
+    "seq_len": 200,
+    "train_samples": 2000,
+    "test_samples": 500,
+    "epochs": 30
+  },
+  {
+    "dataset": "PAMAP2",
+    "accuracy": 0.004,
+    "f1": 0.0001506931886678722,
+    "params": 109036,
+    "time": 15.870462417602539,
+    "n_classes": 12,
+    "n_channels": 28,
+    "seq_len": 512,
+    "train_samples": 2000,
+    "test_samples": 500,
+    "epochs": 30
+  }
+]

@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\centering
+\caption{Ablation study results on Opportunity-like synthetic data.}
+\label{tab:ablation}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Configuration} & \textbf{Accuracy (\%)} & \textbf{F1 (\%)} & \textbf{Params (K)} \\
+\midrule
+Full SAS-HAR (simulated) & 5.89$\pm$0.16 & 4.85$\pm$0.59 & 209.9 \\
+- SBA (no attention) & 5.22$\pm$1.93 & 5.82$\pm$1.44 & 219.5 \\
++ TCBL (contrastive) & 4.78$\pm$0.83 & 4.98$\pm$0.54 & 260.6 \\
++ TASM (transitions) & 4.89$\pm$1.34 & 5.68$\pm$1.44 & 236.1 \\
+Baseline CNN only & 5.22$\pm$1.93 & 5.82$\pm$1.44 & 219.5 \\
+\bottomrule
+\end{tabular}
+\end{table}

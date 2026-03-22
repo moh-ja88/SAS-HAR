@@ -1,0 +1,31 @@
+# Full Hydra Configuration for SAS-HAR Training
+# Supports: pretraining, finetuning, evaluation, benchmarking
+
+defaults:
+  - _self_
+  - model: sas_har
+  - dataset: uci_har
+  - training: default
+  - loss: default
+  - optimizer: adamw
+  - scheduler: cosine
+  - logging: default
+  - hydra: default
+
+# Experiment metadata
+experiment:
+  name: "sas_har_experiment"
+  description: "SAS-HAR training experiment"
+  tags: []
+  seed: 42
+  device: "cuda"
+  debug: false
+
+# Hydra configuration
+hydra:
+  run:
+    dir: outputs/${experiment.name}/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: multirun/${experiment.name}/${now:%Y-%m-%d_%H-%M-%S}
+  job:
+    config_override_dirname: exp=${experiment.name}

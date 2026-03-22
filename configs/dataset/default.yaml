@@ -1,0 +1,94 @@
+# Dataset Configurations
+
+# UCI-HAR Dataset
+uci_har:
+  _target_: sashar.data.UCIHardDataset
+  root: "data/uci_har"
+  window_size: 128
+  stride: 64
+  subjects: null  # All subjects
+  include_boundaries: true
+  download: false
+  
+  # Preprocessing
+  preprocessing:
+    normalize: true
+    filter:
+      enabled: true
+      type: "lowpass"
+      cutoff: 20
+    resample: null
+
+# WISDM Dataset
+wisdm:
+  _target_: sashar.data.WISDMDataset
+  root: "data/wisdm"
+  window_size: 200  # 10 seconds at 20Hz
+  stride: 100
+  subjects: null
+  include_boundaries: true
+  download: false
+  
+  preprocessing:
+    normalize: true
+    filter:
+      enabled: true
+      type: "lowpass"
+      cutoff: 10
+
+# PAMAP2 Dataset
+pamap2:
+  _target_: sashar.data.PAMAP2Dataset
+  root: "data/pamap2"
+  window_size: 512  # ~5 seconds at 100Hz
+  stride: 256
+  subjects: null
+  include_boundaries: true
+  download: false
+  
+  # PAMAP2 specific
+  protocol: "protocol1"  # or "protocol2"
+  sensors: ["accelerometer", "gyroscope", "magnetometer"]
+  
+  preprocessing:
+    normalize: true
+    handle_missing: "interpolate"
+
+# Opportunity Dataset
+opportunity:
+  _target_: sashar.data.OpportunityDataset
+  root: "data/opportunity"
+  window_size: 128
+  stride: 64
+  subjects: null
+  include_boundaries: true
+  download: false
+  
+  # Sensor selection
+  sensors: ["imu", "accel"]
+  
+  preprocessing:
+    normalize: true
+    sensor_fusion: true
+
+# RealWorld HAR Dataset
+realworld:
+  _target_: sashar.data.RealWorldHARDataset
+  root: "data/realworld"
+  position: "waist"  # chest, forearm, head, shin, thigh, upper_arm, waist
+  window_size: 128
+  stride: 64
+  subjects: null
+  include_boundaries: true
+  download: false
+  
+  # Sensor selection
+  sensors: ["accelerometer", "gyroscope", "magnetometer"]
+
+# Cross-dataset configuration
+cross_dataset:
+  train_datasets:
+    - uci_har
+    - wisdm
+  val_dataset: pamap2
+  test_dataset: opportunity

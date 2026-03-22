@@ -1,0 +1,111 @@
+# Training Configurations
+
+# Default training
+default:
+  epochs: 100
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+  gradient_clip: 1.0
+  accumulation_steps: 1
+  
+  # Early stopping
+  early_stopping:
+    enabled: true
+    patience: 15
+    min_delta: 0.001
+    mode: "max"
+    monitor: "val_macro_f1"
+
+# Pre-training configuration (TCBL)
+pretrain:
+  epochs: 100
+  batch_size: 64
+  num_workers: 4
+  
+  # Pre-training specific
+  pretrain_mode: "tcbl"
+  freeze_encoder: false
+  
+  # TCBL settings
+  tcbl:
+    contrastive_weight: 1.0
+    continuity_weight: 0.5
+    masked_weight: 0.3
+    temperature: 0.1
+    mask_ratio: 0.15
+  
+  # Augmentation
+  augmentation:
+    jitter_std: 0.01
+    scale_range: [0.9, 1.1]
+    time_warp_sigma: 0.2
+    rotation_prob: 0.5
+    dropout_prob: 0.1
+
+# Fine-tuning configuration
+finetune:
+  epochs: 50
+  batch_size: 32
+  num_workers: 4
+  
+  # Transfer learning
+  pretrained_path: null
+  freeze_encoder_epochs: 5
+  gradual_unfreeze: true
+  
+  # Label efficiency experiment
+  label_ratio: 1.0  # Use all labels by default
+
+# Quick training for debugging
+debug:
+  epochs: 5
+  batch_size: 16
+  num_workers: 0
+  debug: true
+  limit_train_batches: 10
+  limit_val_batches: 5
+
+# Paper 1 experiments (TCBL)
+paper1_tcbl:
+  epochs: 100
+  batch_size: 64
+  
+  # Label efficiency experiments
+  label_ratios: [0.01, 0.05, 0.10, 0.25, 0.50, 1.0]
+  
+  # Run multiple seeds
+  num_seeds: 5
+
+# Paper 2 experiments (SAS-HAR)
+paper2_sas_har:
+  epochs: 100
+  batch_size: 64
+  
+  # Cross-dataset evaluation
+  cross_dataset: true
+  
+  # Ablation configurations
+  ablation_configs:
+    - full
+    - no_tcbl
+    - no_sba
+    - no_tasm
+
+# Paper 3 experiments (Edge deployment)
+paper3_edge:
+  epochs: 50
+  batch_size: 32
+  
+  # Knowledge distillation
+  distillation:
+    enabled: true
+    teacher_model: "sas_har"
+    temperature: 3.0
+    alpha: 0.7
+  
+  # Quantization
+  quantization:
+    enabled: true
+    bits: 8
+    calibration_samples: 1000

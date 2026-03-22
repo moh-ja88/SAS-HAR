@@ -1,0 +1,55 @@
+# SAS-HAR Model Configurations
+
+# Default full model
+sas_har:
+  _target_: sashar.models.SASHAR
+  input_channels: 6
+  num_classes: 6
+  hidden_dim: 256
+  num_heads: 4
+  num_transformer_layers: 3
+  use_transition_module: true
+  dropout: 0.1
+
+# Lightweight model for edge deployment
+sas_har_lite:
+  _target_: sashar.models.SASHARLite
+  input_channels: 6
+  num_classes: 6
+
+# Small model for faster experiments
+sas_har_small:
+  _target_: sashar.models.SASHAR
+  input_channels: 6
+  num_classes: 6
+  hidden_dim: 128
+  num_heads: 2
+  num_transformer_layers: 2
+  use_transition_module: true
+  dropout: 0.1
+
+# Large model for best performance
+sas_har_large:
+  _target_: sashar.models.SASHAR
+  input_channels: 6
+  num_classes: 6
+  hidden_dim: 512
+  num_heads: 8
+  num_transformer_layers: 6
+  use_transition_module: true
+  dropout: 0.15
+
+# Baseline: Fixed window CNN
+baseline_cnn:
+  _target_: sashar.baselines.classification_baselines.CNNBaseline
+  input_channels: 6
+  num_classes: 6
+  hidden_dim: 128
+
+# Baseline: LSTM
+baseline_lstm:
+  _target_: sashar.baselines.classification_baselines.LSTMBaseline
+  input_channels: 6
+  num_classes: 6
+  hidden_dim: 128
+  num_layers: 2

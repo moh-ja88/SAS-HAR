@@ -1,0 +1,24 @@
+HAR Dataset Experiment Results
+========================================
+
+Run Date: 2026-03-09 22:43:12
+
+
+OPPORTUNITY:
+  Accuracy: 0.00%
+  F1 Macro: 0.00%
+  Params: 24292
+
+UCI_HAR:
+  Accuracy: 0.00%
+  F1 Macro: 0.00%
+  Params: 8262
+
+PAMAP2:
+  Accuracy: 0.00%
+  F1 Macro: 0.00%
+  Params: 10092
+
+WISDM:
+  Status: ERROR
+  Error: num_samples should be a positive integer value, but got num_samples=0

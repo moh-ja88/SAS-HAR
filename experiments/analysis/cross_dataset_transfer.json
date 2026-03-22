@@ -1,0 +1,74 @@
+{
+  "uci_har_to_pamap2": {
+    "accuracy": 12.42,
+    "source_classes": 6,
+    "target_classes": 12,
+    "mapped_classes": 6
+  },
+  "uci_har_to_opportunity": {
+    "accuracy": 43.3,
+    "source_classes": 6,
+    "target_classes": 4,
+    "mapped_classes": 4
+  },
+  "uci_har_to_wisdm": {
+    "accuracy": 11.67,
+    "source_classes": 6,
+    "target_classes": 18,
+    "mapped_classes": 6
+  },
+  "pamap2_to_uci_har": {
+    "accuracy": 15.97,
+    "source_classes": 12,
+    "target_classes": 6,
+    "mapped_classes": 6
+  },
+  "pamap2_to_opportunity": {
+    "accuracy": 21.69,
+    "source_classes": 12,
+    "target_classes": 4,
+    "mapped_classes": 4
+  },
+  "pamap2_to_wisdm": {
+    "accuracy": 5.25,
+    "source_classes": 12,
+    "target_classes": 18,
+    "mapped_classes": 12
+  },
+  "opportunity_to_uci_har": {
+    "accuracy": 35.55,
+    "source_classes": 4,
+    "target_classes": 6,
+    "mapped_classes": 4
+  },
+  "opportunity_to_pamap2": {
+    "accuracy": 23.78,
+    "source_classes": 4,
+    "target_classes": 12,
+    "mapped_classes": 4
+  },
+  "opportunity_to_wisdm": {
+    "accuracy": 30.52,
+    "source_classes": 4,
+    "target_classes": 18,
+    "mapped_classes": 4
+  },
+  "wisdm_to_uci_har": {
+    "accuracy": 17.58,
+    "source_classes": 18,
+    "target_classes": 6,
+    "mapped_classes": 6
+  },
+  "wisdm_to_pamap2": {
+    "accuracy": 1.85,
+    "source_classes": 18,
+    "target_classes": 12,
+    "mapped_classes": 12
+  },
+  "wisdm_to_opportunity": {
+    "accuracy": 28.95,
+    "source_classes": 18,
+    "target_classes": 4,
+    "mapped_classes": 4
+  }
+}

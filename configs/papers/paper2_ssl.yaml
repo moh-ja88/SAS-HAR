@@ -1,0 +1,200 @@
+# Paper 2: Self-Supervised Representation Learning for HAR
+# Target Venue: NeurIPS / ICML
+
+paper:
+  title: "Temporal Contrastive Boundary Learning for Self-Supervised Human Activity Recognition"
+  short_title: "TCBL: Self-Supervised HAR"
+  target_venue: "NeurIPS"
+  impact_factor: 15.0
+  expected_submission: "Q4 2026"
+
+abstract: |
+  Labeled data for Human Activity Recognition (HAR) is expensive to collect, 
+  particularly for activity boundaries which require precise temporal annotation. 
+  We introduce Temporal Contrastive Boundary Learning (TCBL), a self-supervised 
+  pre-training framework that learns boundary-aware representations from unlabeled 
+  sensor streams. TCBL combines three pretext tasks: (1) temporal contrastive 
+  learning between adjacent segments, (2) continuity prediction for boundary 
+  detection, and (3) masked temporal modeling for robust representations. 
+  Our approach achieves 90% of supervised performance using only 10% of labeled 
+  data across four HAR benchmarks, demonstrating strong transfer learning 
+  capabilities. Pre-training on one dataset and fine-tuning on another yields 
+  up to 8% improvement over training from scratch. To our knowledge, this is 
+  the first self-supervised framework specifically designed for temporal 
+  segmentation in HAR.
+
+keywords:
+  - "Self-Supervised Learning"
+  - "Contrastive Learning"
+  - "Human Activity Recognition"
+  - "Transfer Learning"
+  - "Temporal Segmentation"
+
+contributions:
+  - number: 1
+    text: |
+      TCBL, a novel self-supervised pre-training framework that learns 
+      boundary-aware representations without requiring any labeled data.
+  
+  - number: 2
+    text: |
+      Three complementary pretext tasks designed specifically for temporal 
+      segmentation: temporal contrastive learning, continuity prediction, 
+      and masked temporal modeling.
+  
+  - number: 3
+    text: |
+      Comprehensive label efficiency experiments demonstrating 90% supervised 
+      performance with only 10% labels, plus cross-dataset transfer learning 
+      results showing up to 8% improvement.
+
+experiments:
+  # Experiment 1: Label Efficiency
+  label_efficiency:
+    label_ratios: [0.01, 0.05, 0.10, 0.25, 0.50, 1.0]
+    datasets: ["uci_har", "wisdm", "pamap2", "opportunity"]
+    primary_metric: "performance_at_10pct_labels"
+    target: "90% of supervised"
+  
+  # Experiment 2: Transfer Learning
+  transfer_learning:
+    protocol: "leave-one-dataset-out"
+    pretrain_datasets: ["uci_har", "wisdm", "pamap2"]
+    finetune_datasets: ["opportunity"]
+    target_improvement: "+5-8%"
+  
+  # Experiment 3: Pretext Task Ablation
+  pretext_ablation:
+    tasks:
+      - "Temporal Contrastive (TC)"
+      - "Continuity Prediction (CP)"
+      - "Masked Temporal (MT)"
+    combinations:
+      - "TC only"
+      - "TC + CP"
+      - "TC + MT"
+      - "CP + MT"
+      - "TC + CP + MT (Full)"
+  
+  # Experiment 4: Comparison with SSL Baselines
+  ssl_comparison:
+    baselines:
+      - "SimCLR"
+      - "MoCo v2"
+      - "BYOL"
+      - "MAE"
+    comparison: "HAR-specific vs generic SSL"
+
+expected_results:
+  label_efficiency:
+    "1pct":
+      uci_har: 0.76
+      wisdm: 0.72
+      pamap2: 0.68
+    "5pct":
+      uci_har: 0.84
+      wisdm: 0.81
+      pamap2: 0.78
+    "10pct":
+      uci_har: 0.90
+      wisdm: 0.88
+      pamap2: 0.85
+    "100pct":
+      uci_har: 0.98
+      wisdm: 0.95
+      pamap2: 0.94
+  
+  transfer_learning:
+    uci_har_to_opportunity: "+8.2%"
+    wisdm_to_pamap2: "+6.5%"
+    pamap2_to_wisdm: "+5.8%"
+
+structure:
+  sections:
+    - title: "Introduction"
+      pages: 2
+      content:
+        - "Label scarcity problem in HAR"
+        - "Existing SSL approaches and limitations"
+        - "Our approach and contributions"
+    
+    - title: "Related Work"
+      pages: 2
+      content:
+        - "Self-supervised learning in vision"
+        - "SSL for time series"
+        - "HAR-specific pre-training"
+    
+    - title: "Method"
+      pages: 4
+      content:
+        - "Problem formulation"
+        - "TCBL framework overview"
+        - "Temporal contrastive learning"
+        - "Continuity prediction"
+        - "Masked temporal modeling"
+        - "Pre-training and fine-tuning"
+    
+    - title: "Experiments"
+      pages: 4
+      content:
+        - "Datasets and setup"
+        - "Label efficiency experiments"
+        - "Transfer learning experiments"
+        - "Comparison with SSL baselines"
+    
+    - title: "Analysis"
+      pages: 2
+      content:
+        - "Pretext task ablation"
+        - "Representation analysis"
+        - "Boundary quality analysis"
+    
+    - title: "Conclusion"
+      pages: 1
+
+figures:
+  - id: "fig1"
+    title: "TCBL Framework"
+    type: "architecture_diagram"
+    description: "Overview of TCBL showing three pretext tasks and pre-training/fine-tuning pipeline"
+  
+  - id: "fig2"
+    title: "Label Efficiency Curves"
+    type: "line_plot"
+    description: "Performance vs label percentage for all datasets"
+  
+  - id: "fig3"
+    title: "Transfer Learning Results"
+    type: "heatmap"
+    description: "Cross-dataset transfer learning improvements"
+  
+  - id: "fig4"
+    title: "Representation Visualization"
+    type: "tsne_plot"
+    description: "t-SNE of learned representations before and after TCBL"
+
+tables:
+  - id: "table1"
+    title: "Label Efficiency Results"
+    columns: ["Labels %", "UCI-HAR", "WISDM", "PAMAP2", "Opportunity"]
+  
+  - id: "table2"
+    title: "Transfer Learning Results"
+    columns: ["Pre-train", "Fine-tune", "From Scratch", "With TCBL", "Improvement"]
+  
+  - id: "table3"
+    title: "SSL Baseline Comparison"
+    columns: ["Method", "10% Labels", "100% Labels"]
+  
+  - id: "table4"
+    title: "Pretext Task Ablation"
+    columns: ["Configuration", "Boundary F1", "Accuracy"]
+
+key_references:
+  - "Chen et al. (2020) - SimCLR"
+  - "He et al. (2020) - MoCo v2"
+  - "Grill et al. (2020) - BYOL"
+  - "He et al. (2022) - MAE"
+  - "Tonekaboni et al. (2021) - Unsupervised Representation Learning for Time Series"
+  - "Eldele et al. (2021) - TST: Time-Series Transformer"

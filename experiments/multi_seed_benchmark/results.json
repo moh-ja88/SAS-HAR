@@ -1,0 +1,62 @@
+[
+  {
+    "dataset": "Opportunity",
+    "classes": 17,
+    "channels": 110,
+    "accuracy_mean": 0.05133333333333334,
+    "accuracy_std": 0.001885618083164125,
+    "f1_mean": 0.054423956710980444,
+    "f1_std": 0.006628872592963883,
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "epochs": 10
+  },
+  {
+    "dataset": "UCI-HAR",
+    "classes": 6,
+    "channels": 9,
+    "accuracy_mean": 0.16666666666666666,
+    "accuracy_std": 0.003399346342395193,
+    "f1_mean": 0.1635803977226381,
+    "f1_std": 0.003953792117939106,
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "epochs": 10
+  },
+  {
+    "dataset": "WISDM",
+    "classes": 6,
+    "channels": 3,
+    "accuracy_mean": 0.19133333333333336,
+    "accuracy_std": 0.008219218670625309,
+    "f1_mean": 0.18037863387113537,
+    "f1_std": 0.007687585309277897,
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "epochs": 10
+  },
+  {
+    "dataset": "PAMAP2",
+    "classes": 12,
+    "channels": 28,
+    "accuracy_mean": 0.08600000000000001,
+    "accuracy_std": 0.009797958971132715,
+    "f1_mean": 0.08401754988932326,
+    "f1_std": 0.005726106668925197,
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "epochs": 10
+  }
+]

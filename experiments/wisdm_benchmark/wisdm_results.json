@@ -1,0 +1,16 @@
+{
+  "dataset": "WISDM",
+  "epochs": 30,
+  "results": {
+    "Simple CNN": {
+      "accuracy": 21.810157056058696,
+      "f1_macro": 20.650810147960648,
+      "params": 64338
+    },
+    "Deep Similarity": {
+      "accuracy": 21.89613665023501,
+      "f1_macro": 21.484649358093012,
+      "params": 64338
+    }
+  }
+}

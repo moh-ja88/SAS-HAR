@@ -1,0 +1,59 @@
+{
+  "experiment_info": {
+    "dataset": "opportunity",
+    "epochs": 3,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "hidden_dim": 128,
+    "num_classes": 6,
+    "num_channels": 6,
+    "device": "cuda",
+    "seed": 42,
+    "training_time_seconds": 3.897411584854126,
+    "timestamp": "2026-03-09T12:37:07.823137"
+  },
+  "model_info": {
+    "name": "SAS-HAR",
+    "num_parameters": 642945
+  },
+  "training_history": {
+    "train_loss": [
+      1.1204410859129645,
+      0.8813401636752215,
+      0.8211656348271803
+    ],
+    "train_accuracy": [
+      0.6142857142857143,
+      0.6685714285714286,
+      0.6992857142857143
+    ],
+    "val_loss": [
+      2.201415503025055,
+      0.800378942489624,
+      0.783694964647293
+    ],
+    "val_accuracy": [
+      0.26,
+      0.66,
+      0.6933333333333334
+    ],
+    "val_f1": [
+      0.19158523859216392,
+      0.5799319727891157,
+      0.5922330097087379
+    ],
+    "val_boundary_f1": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "test_results": {
+    "accuracy": 0.6633333333333333,
+    "f1_macro": 0.5785115799483616,
+    "boundary_precision": 0.0,
+    "boundary_recall": 0.0,
+    "boundary_f1": 0.0
+  },
+  "best_val_f1": 0.5922330097087379
+}

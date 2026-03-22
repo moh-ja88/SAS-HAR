@@ -1,0 +1,44 @@
+{
+  "opportunity": {
+    "deep_similarity": {
+      "t_statistic": 14.804,
+      "p_value": 0.000121,
+      "cohens_d": 3.343,
+      "significant": true
+    },
+    "simple_cnn": {
+      "t_statistic": 26.28,
+      "p_value": 1.2e-05,
+      "cohens_d": 3.098,
+      "significant": true
+    }
+  },
+  "uci_har": {
+    "deep_similarity": {
+      "t_statistic": 16.254,
+      "p_value": 8.4e-05,
+      "cohens_d": 3.391,
+      "significant": true
+    },
+    "simple_cnn": {
+      "t_statistic": 46.278,
+      "p_value": 1e-06,
+      "cohens_d": 3.211,
+      "significant": true
+    }
+  },
+  "pamap2": {
+    "deep_similarity": {
+      "t_statistic": 25.672,
+      "p_value": 1.4e-05,
+      "cohens_d": 3.843,
+      "significant": true
+    },
+    "simple_cnn": {
+      "t_statistic": 83.125,
+      "p_value": 0.0,
+      "cohens_d": 5.671,
+      "significant": true
+    }
+  }
+}

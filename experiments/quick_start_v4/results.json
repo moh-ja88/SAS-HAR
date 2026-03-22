@@ -1,0 +1,59 @@
+{
+  "experiment_info": {
+    "dataset": "synthetic",
+    "epochs": 3,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "hidden_dim": 128,
+    "num_classes": 6,
+    "num_channels": 6,
+    "device": "cuda",
+    "seed": 42,
+    "training_time_seconds": 2.9740028381347656,
+    "timestamp": "2026-03-09T12:24:32.566593"
+  },
+  "model_info": {
+    "name": "SimpleHARModel",
+    "num_parameters": 488007
+  },
+  "training_history": {
+    "train_loss": [
+      1.0316810811107808,
+      0.7592034475369887,
+      0.6932106133211743
+    ],
+    "train_accuracy": [
+      0.62,
+      0.7392857142857143,
+      0.7685714285714286
+    ],
+    "val_loss": [
+      0.7926983773708344,
+      0.8127641916275025,
+      0.6621241331100464
+    ],
+    "val_accuracy": [
+      0.66,
+      0.7633333333333333,
+      0.7433333333333333
+    ],
+    "val_f1": [
+      0.5799319727891157,
+      0.7305031045794852,
+      0.7230087014725569
+    ],
+    "val_boundary_f1": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "test_results": {
+    "accuracy": 0.7733333333333333,
+    "f1_macro": 0.7452847805788982,
+    "boundary_precision": 0.0,
+    "boundary_recall": 0.0,
+    "boundary_f1": 0.0
+  },
+  "best_val_f1": 0.7305031045794852
+}

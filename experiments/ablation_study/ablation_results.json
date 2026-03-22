@@ -1,0 +1,47 @@
+[
+  {
+    "config": "Full SAS-HAR (simulated)",
+    "accuracy_mean": 0.058888888888888886,
+    "accuracy_std": 0.0015713484026367726,
+    "f1_mean": 0.04854512697858245,
+    "f1_std": 0.005898330106526753,
+    "time_mean": 3.9450458685557046,
+    "params": 209874
+  },
+  {
+    "config": "- SBA (no attention)",
+    "accuracy_mean": 0.052222222222222225,
+    "accuracy_std": 0.01930905244109196,
+    "f1_mean": 0.058211383232886216,
+    "f1_std": 0.014412625813367289,
+    "time_mean": 3.0253353118896484,
+    "params": 219473
+  },
+  {
+    "config": "+ TCBL (contrastive)",
+    "accuracy_mean": 0.04777777777777777,
+    "accuracy_std": 0.00831479419283098,
+    "f1_mean": 0.04977360046294425,
+    "f1_std": 0.005398995309179847,
+    "time_mean": 3.122591018676758,
+    "params": 260625
+  },
+  {
+    "config": "+ TASM (transitions)",
+    "accuracy_mean": 0.04888888888888889,
+    "accuracy_std": 0.013425606637327302,
+    "f1_mean": 0.05675467381666253,
+    "f1_std": 0.014390972020122935,
+    "time_mean": 3.2064451376597085,
+    "params": 236051
+  },
+  {
+    "config": "Baseline CNN only",
+    "accuracy_mean": 0.052222222222222225,
+    "accuracy_std": 0.01930905244109196,
+    "f1_mean": 0.058211383232886216,
+    "f1_std": 0.014412625813367289,
+    "time_mean": 3.086595058441162,
+    "params": 219473
+  }
+]

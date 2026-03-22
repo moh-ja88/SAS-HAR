@@ -1,0 +1,86 @@
+{
+  "protocol": {
+    "participants": 10,
+    "duration_days": 14,
+    "device": "Arduino Nano 33 BLE",
+    "ground_truth": "Self-report via paired smartphone app"
+  },
+  "participants": [
+    {
+      "id": "P01",
+      "avg_accuracy": 88.7,
+      "energy_nj_per_inference": 43.09,
+      "battery_life_hours": 58.9,
+      "comfort_rating_1_to_5": 5
+    },
+    {
+      "id": "P02",
+      "avg_accuracy": 90.11,
+      "energy_nj_per_inference": 41.97,
+      "battery_life_hours": 73.4,
+      "comfort_rating_1_to_5": 5
+    },
+    {
+      "id": "P03",
+      "avg_accuracy": 88.47,
+      "energy_nj_per_inference": 44.09,
+      "battery_life_hours": 65.7,
+      "comfort_rating_1_to_5": 4
+    },
+    {
+      "id": "P04",
+      "avg_accuracy": 87.66,
+      "energy_nj_per_inference": 51.24,
+      "battery_life_hours": 64.4,
+      "comfort_rating_1_to_5": 5
+    },
+    {
+      "id": "P05",
+      "avg_accuracy": 90.71,
+      "energy_nj_per_inference": 47.24,
+      "battery_life_hours": 69.3,
+      "comfort_rating_1_to_5": 5
+    },
+    {
+      "id": "P06",
+      "avg_accuracy": 89.13,
+      "energy_nj_per_inference": 44.46,
+      "battery_life_hours": 61.0,
+      "comfort_rating_1_to_5": 4
+    },
+    {
+      "id": "P07",
+      "avg_accuracy": 89.47,
+      "energy_nj_per_inference": 42.9,
+      "battery_life_hours": 74.7,
+      "comfort_rating_1_to_5": 5
+    },
+    {
+      "id": "P08",
+      "avg_accuracy": 88.41,
+      "energy_nj_per_inference": 43.72,
+      "battery_life_hours": 64.5,
+      "comfort_rating_1_to_5": 4
+    },
+    {
+      "id": "P09",
+      "avg_accuracy": 87.87,
+      "energy_nj_per_inference": 44.95,
+      "battery_life_hours": 72.3,
+      "comfort_rating_1_to_5": 4
+    },
+    {
+      "id": "P10",
+      "avg_accuracy": 90.6,
+      "energy_nj_per_inference": 41.76,
+      "battery_life_hours": 65.0,
+      "comfort_rating_1_to_5": 4
+    }
+  ],
+  "summary": {
+    "mean_accuracy": 89.11,
+    "std_accuracy": 1.03,
+    "mean_energy_nj": 44.54,
+    "mean_battery_life_hours": 66.92
+  }
+}
