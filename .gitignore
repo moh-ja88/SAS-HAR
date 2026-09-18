@@ -129,7 +129,9 @@ checkpoints/
 logs/
 runs/
 outputs/
-data/
+/data/
+Signals/
+Dataset/
 *.pt
 *.pth
 *.ckpt
