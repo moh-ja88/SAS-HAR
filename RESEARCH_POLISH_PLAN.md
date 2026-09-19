@@ -112,8 +112,12 @@ Each row: current text → evidence → required revision.
 
 ## Sequencing
 
-**Pre-meeting (this week):** #2 reference import (mechanical), #3 baseline table
-row additions, #6 workspace git init, regenerate proposal PDF.
+**Pre-meeting (this week):** ✅ #2 reference import (refs [42]–[48] added 2026-09-19:
+HAR-JEPA, CLaP, Koopman-JEPA, SCOTT, OTAS, Bazarova, SWL-Adapt; 18 in-text citations
+consistent; disclaimer updated) · ✅ #3 baseline table rows added (§4.4 boundary/CPD +
+adaptive-windowing families; §2.5 nearest-prior-work expanded; §2.3 JEPA paragraph) ·
+✅ #6 workspace git init (local commit 1749fd1, 65 files; remote push pending account
+decision) · ✅ proposal PDF regenerated via pandoc/xelatex.
 **Meeting decisions:** #1 substantive proposal revisions, #5 Phase B v1 vs
 semi-supervised pivot, Opportunity-primary dataset switch (§4.2).
 **Post-meeting:** #4 P1 ladder execution (weeks 1–4), concurrent P1 draft.
