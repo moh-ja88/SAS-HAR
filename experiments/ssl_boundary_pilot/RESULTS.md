@@ -64,10 +64,46 @@ clean monotone ladder:
   the probe-based falsification test that caught ours is now part of the
   harness (probe check printed by every experiment).
 
+## Phase B v0 — label-free self-training loop (2026-09-19, `exp5_phaseB_loop.py`)
+
+Question: can the supervision gap (MMD 0.26 AUPRC → supervised 0.50) be closed
+label-free by bootstrapping: MMD peaks → pseudo-cuts → train head → iterate?
+
+**Result: NO — naive self-training does not bootstrap past the teacher.**
+
+| iter | detector | test AUPRC | F1@fixed-thr | F1@oracle-thr | pseudo-prec |
+|---|---|---|---|---|---|
+| 0 | MMD 2s (teacher) | 0.256 | 0.331 | 0.335 | 0.32 |
+| 1 | head | 0.208 | 0.099 | 0.166 | 0.51 |
+| 2 | head | 0.229 | 0.123 | **0.228** | 0.49 |
+| 3 | head | 0.207 | 0.159 | 0.202 | 0.43 |
+| 4 | head | 0.192 | 0.086 | 0.116 | 0.44 |
+
+(seed 42, test S7, 144 GT; loop fully label-free — thresholds fixed a priori;
+v0.1 collapsed at iter 1 via drift guard; v0.2 added MMD candidate-maintenance
+recall floor + batched inference.)
+
+Measured failure modes:
+1. **Detection contraction**: head evidence is sharp/overconfident → at a fixed
+   percentile it fires 10× less than the teacher (recall collapse), while
+   pseudo-precision only rises 0.32→~0.5.
+2. **Noise not corrected**: pseudo-label precision plateaus ~0.45 — hard BCE
+   on 68%-noisy positives cannot distinguish signal from teacher noise.
+3. **Teacher ceiling**: without new evidence sources, recall cannot exceed the
+   teacher's; ranking peaks at iter 2 (oracle 0.228) then decays.
+
+Design implications for Phase B v1 (proposal §3.8):
+- confidence-weighted / soft pseudo-labels instead of hard BCE
+- calibrated operating points (match detection budget to teacher top-K)
+- **fine-tune the encoder jointly** — a frozen encoder + shallow head cannot
+  restructure representations around boundary structure
+- alternative: skip bootstrapping, use a FEW labeled subjects (probe-contrast
+  needs only a linear probe) — semi-supervised framing with cleaner economics
+
 ## Next steps (updated)
 
-1. **Close the supervision gap**: feed confident MMD/probe detections back as
-   pseudo-labels to retrain the head (Phase B loop, now empirically motivated).
+1. Phase B v1 per the design implications above (soft labels, joint encoder
+   fine-tuning, calibrated top-K) — or pivot to the semi-supervised framing.
 2. **Head + probe fusion**: head has best AUPRC (0.50), probe-contrast best F1
    (0.74) — combine rankings.
 3. **Multi-scale MMD** (2 s→4 s sides; gradual vs abrupt transition classes).

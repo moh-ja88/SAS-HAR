@@ -141,3 +141,25 @@ is purely in how boundary evidence is extracted from it.
 - Reproduction: `python pilot_concat.py 42`, `exp2_distributional.py 42`,
   `exp3_trained_head.py 42`, `exp4_probe_contrast.py 42` (system Python 3.13,
   torch 2.6 CUDA; ~3 min/run).
+
+---
+
+## Addendum (2026-09-19, post-report): Phase B v0 self-training loop
+
+After this report was written, the first Phase B experiment ran
+(`exp5_phaseB_loop.py`): MMD pseudo-cuts → cut-supervised head → iterate,
+fully label-free (fixed thresholds, no GT in the loop).
+
+**Result: naive self-training does NOT bootstrap past the unsupervised
+teacher.** Test trajectory (seed 42): MMD teacher AUPRC 0.256 / oracle-F1
+0.335 → head best at iter 2: AUPRC 0.229 / oracle-F1 0.228, decaying after.
+Measured failure modes: detection contraction (head fires 10× less at matched
+percentile), pseudo-label noise plateau (precision ~0.45, not corrected), and
+a teacher-recall ceiling.
+
+**Implication for the proposal:** Phase B (§3.8) as "refine by iteration"
+needs: confidence-weighted soft labels, calibrated detection budgets, and
+joint encoder fine-tuning (a frozen encoder + shallow head cannot restructure
+the representation). Alternatively, a semi-supervised framing (a few labeled
+subjects + linear probe, which already reaches F1 0.74) may deliver the same
+objective with cleaner economics — a concrete discussion point for our meeting.
