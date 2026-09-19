@@ -1,0 +1,173 @@
+
+
+
+PhD Proposal:
+
+
+Enhanced deep learning model for Human Action Recognition (HAR)
+
+By: MOHAMMED JASIM
+
+Supervisor:
+MOHD HALIM MOHD NOOR
+
+2025
+
+
+List of Contents
+Abstract	4
+1	Introduction	4
+1.1	Technological Evolution	5
+1.2	The Segmentation Imperative	6
+1.3	The Challenge of Edge Deployment and NanoML	6
+1.4	Research Significance	7
+1.5	Scope and Limitations	8
+1.5.1	Scope	8
+1.5.2	Limitations	8
+2	Problem Statement	8
+2.1	Limitations of Fixed Sliding Window (Segmentation Bottleneck)	9
+2.2	The Challenge of Transitional Activities	9
+2.3	The Accuracy-Efficiency-Privacy Trilemma	9
+3	Research Objectives	10
+3.1	Main Objective	10
+3.2	Specific Objectives	10
+4	Literature Review	11
+4.1	Signal Segmentation: from Fixed Windows to Deep Similarity	11
+4.2	Architectural Shift: Transformers & Hybrid Models	12
+4.3	Operational Efficiency: The NanoML Revolution	12
+5	Proposed Methodology	13
+5.1	Phase 1: Dynamic Attention Based Segmentation (The Input Layer)	13
+5.2	Phase 2: Hybrid Design of Architecture (The Core Model)	14
+5.3	Phase 3: Optimization of NanoML and Edge deployment (The Deployment Layer)	14
+5.4	Phase 4: Evaluating and Validating	15
+6	Expected Contributions	15
+7	Work Plan (1.5 Years / 18 Months)	16
+8	Conclusion	17
+9	References	18
+
+
+
+Abstract
+Human Activity Recognition (HAR) has become an important enabler of Ambient Assisted Living (AAL) and remote healthcare monitoring. Despite great progress in the field of Deep Learning, existing systems have a "trilemma" of limitations: the semantic ambiguity introduced by Fixed-size Sliding Window (FSW) segmentation (A. M. A. Baraka and Mohd Noor 2023; A. Baraka and Mohd Noor 2024; BARAKA and Noor 2024), the inability to accurately detect short transitional activities (e.g., sit-to-stand), and the prohibitive computational cost associated with deploying state-of-the-art models on battery constrained edge devices. Based on the original research on Deep Similarity Segmentation (A. Baraka and Mohd Noor 2024; BARAKA and Noor 2024) and the recent 2025 paradigm shift towards Vision Transformers, this research proposes "Nano-HAR", a novel, energy-efficient framework that has been optimized for the edge. The proposed methodology proposes a Dynamic Attention-based Segmentation algorithm to delineate activity boundaries automatically according to semantic context instead of the fixed time intervals, which directly solves the limitations of statistical similarity methods. Furthermore, it builds a Hybrid CNN-Transformer that is optimized using Knowledge Distillation and Quantization to deliver high-precision recognition with nanoseconds level latency (NanoML). By addressing the challenge between algorithmic complexity and operational efficiency, the goal of this research is to provide a robust and privacy-preserving HAR solution that can be executed entirely on wearable devices to provide 24/7 monitoring sustainability for the elderly and disabled populations.
+Introduction
+The proliferation of ubiquitous computing and the Internet of Things (IoT) has made Human Activity Recognition (HAR) firmly become a cornerstone of the modern technological infrastructure (Ige, Oladele, and Sibiya 2025; Shiri et al. 2025). By 2025, HAR has been able to transform itself from a novelty in computer vision to a key enabler of safety-critical systems, especially in healthcare for Ambient Assisted Living (AAL) (Al Farid et al. 2025; Shahiduzzaman 2025) and industrial ergonomic evaluation (Bassani, Avizzano, and Filippeschi 2025; Sochopoulos et al. 2025). As the world's population is aging, the need for autonomous systems that can monitor the daily activities of living (ADLs) (McCarthy et al. 2025; Molina Arias and Smoleń 2025) and identify anomalies such as falls or gait irregularities without continuous human intervention has reached a new scale (Alohali et al. 2025; Molina Arias and Smoleń 2025). This technological evolution is to enhance the quality of life of the elderly and disabled (Alkahtani, Mohammed, and Marzouk 2025; Alqahtani 2025) through unobtrusive and privacy-preserving monitoring solutions that work harmoniously in the real world (Fenoglio et al. 2025; Ting et al. 2025).
+
+Technological Evolution
+From CNNs to Transformers In the past, the practice of HAR has followed the manual feature engineering approach followed by a traditional machine learning algorithm (Ismael 2025; Thuong et al. 2024). The advent of Deep Learning (DL) was a significant paradigm shift and the Convolutional Neural Networks (CNNs) became the de facto standard for automatically extracting spatial features from sensor data (Al Farid et al. 2025; Shin et al. 2025). However, it has been recently highlighted in literature that this type of CNN architectures shows difficulties to capture long-range temporal dependencies, necessary to discriminate typical human behavior, which is complex and transitional (Ige, Oladele, and Sibiya 2025; Miao et al. 2025). To overcome this limitation, there has been a definitive migration towards Vision Transformers (ViT) and Hybrid Ensembles in the research landscape in 2025. Studies conducted by (Karim et al. 2025; Khadidos and Alsini 2025; Zhu et al. 2025) show that attention-based mechanisms provide a better scalability of modeling complex motion sequences than convolutional baselines do, which is equivalent to obtaining the context of human motion globally in the video.
+The Segmentation Imperative 
+One essential element of the HAR pipeline, which gets overlooked in a significant way, is signal segmentation. Accurate recognition of activities is based on precise delimitation of activity boundaries. The vast majority of the existing systems use the Fixed-size Sliding Window (FSW) technique because of its implementation simplicity (A. M. A. Baraka and Mohd Noor 2023; A. Baraka and Mohd Noor 2024). However, human activities are by nature dynamic and have variable durations; fixed window typically doesn't capture full cycles of activities or captures multiple different activities in a frame and thus causes semantic ambiguity. In recent developments performed by (A. Baraka and Mohd Noor 2024) under Deep Similarity Segmentation, the importance of the transition to dynamic segmentation mechanisms that are content aware is emphasized, and that take "Transitional Activities " (e.g. sit-to-stand) into consideration, which are often potential sources of classification error in continuous monitoring streams.
+The Challenge of Edge Deployment and NanoML 
+Parallel to the algorithmic complexity of Transformers is the physical constraint of deployment hardware. Modern HAR applications demand "always-on" sensing, which imposes severe restrictions on battery life and computational power (Yamane, Kimura, and Morita 2025). Deploying huge deep learning models on resource-constrained edge devices (e.g. smartwatches (Sakalauskas and Vaiciulyte 2025; Wieland and Pankratius 2025; Yeon et al. 2025) or IoT microcontrollers) results in a bottleneck. This has led to the "NanoML" revolution. (Bacellar et al. 2025; Lamaakal et al. 2025) introduced techniques such as "Differentiable Weightless Neural Networks and Knowledge Distillation" to separate the recognition accuracy from the cost. Achieving high-precision HAR on edge is now a matter of taking a holistic approach that will optimize the model architecture for nano-level latency and nano-level energy.
+Research Significance 
+The importance of this research is that it could help bridge the growing divide between the theoretical advancements in algorithms and the feasibility of making these algorithms work in practice. While existing SOTA models are very accurate on cloud-based servers, they are not always practical for real-time and privacy-critical edge applications. By creating an improved deep learning model that combines Dynamic Segmentation and NanoML efficiency, this research contributes a powerful structure for:
+Improved Safety: Improvement in detecting transitional activities (which are often associated with fall risks (Aina 2025; Shahiduzzaman 2025)) which are undetected by traditional fixed-window systems.
+Operational Sustainability: The ability to make complex AI models operate for long periods on battery-based devices to decrease the maintenance burden in AAL scenarios (Elmosallamy and Soliman 2025).
+Privacy Preservation: Enabling local data processing on the device to eliminate the necessity of sending sensitive sensor information to the cloud, to address privacy concerns increasing amongst users (Fenoglio et al. 2025; Ting et al. 2025; Weng et al. 2026).
+Scope and Limitations 
+This research is limited to Sensor-based HAR, based on inertial measurement units (accelerometers and gyroscopes) that are commonly used in wearable and smartphones (Ismael 2025).
+Scope 
+The scope of this study includes development of segmentation algorithms, hybrid deep learning (CNN-Transformer) architectures of segmentation algorithms and optimization methods (quantization/distillation) for deployment on edge hardware (FPGAs or Microcontrollers).
+Limitations
+Modality: The research is limited to non-video based HAR due to privacy (Ge et al. 2024)  and energy-efficiency reasons.
+Environment: While generalization is the goal of the model, validation will mainly be performed on standardized datasets (i.e. WHAR (Burzer et al. 2025), WISDM (Alqahtani 2025; He et al. 2025; Nandi, Singh, and Chowdhury 2025)) and controlled real-world experiments; generally uncontrolled environments in the wild with extreme noise are out of the main scope.
+Hardware: The hardware is the aspect of implementation where they are trying to optimize inference; hardware design (chip fabrication) is out of scope in this study.
+Problem Statement
+Based on the basic research in the research group (A. Baraka and Mohd Noor 2024) and the strategic gaps identified in the state-of-the-art review (2025), the main research problem can be summarized as follows:
+Limitations of Fixed Sliding Window (Segmentation Bottleneck) 
+Most existing HAR systems are based on fixed size sliding window (FSW) technique for signal segmentation. However, this approach is fundamentally flawed because the length of the durations of human activities varies.
+A large window size tends to cause confounding of signals from different activities.
+A small window size divides one activity into several fragments; semantic context is lost.
+Crucially, FSW cannot capture the "inter-window" relationships as it brings windows adjacent to each other as independent events, and this leads to lower performance during continuous activity monitoring.
+The Challenge of Transitional Activities
+Traditional models have a very hard time with "Transitional Activities" (e.g., stand to sit, sit to lie). These activities are brief, dynamic and are often misclassified as noise or are combined with basic activities. The inability to accurately detect these transitions limits the ability of the full flow of human behavior to be understood, which is critical for applications, such as fall detection.
+The Accuracy-Efficiency-Privacy Trilemma
+With the introduction of recent models such as Transformers and Deep Similarity Segmentation, which provide a higher level of accuracy, they are frequently accompanied by a high computational cost that is unsuitable for resource-constrained edge devices (e.g. smartwatches, IoT nodes). Furthermore, raw data is processed by current segmentation and recognition pipelines in a way that reveals the privacy of users. There is a critical lack of "NanoML-ready" architectures that are capable of dynamic segmentation and recognition with a minimal energy consumption (Nanojoule-level) in addition to the integration of "Security-by-Design" principles.
+Research Objectives
+The main focus of the current research is to address the limitations of the fixed-size segmentation and the computational heavy model by creating an intelligent and energy-efficient HAR framework that can be used in edge deployment.
+Main Objective
+To design and implement a novel Enhanced Deep learning Model for Human Action Recognition based on Dynamic Attention based Segmentation and Nano-scale Machine Learning (NanoML) techniques with a high accuracy for transitional activities and ultra-low latency and privacy preservation on resource constrained devices.
+Specific Objectives
+To develop a Dynamic Segmentation Algorithm: Moving beyond the "Fixed Sliding Window" and statistical similarity-based methods by using Transformer-based Attention mechanisms. This objective is to automatically identify activity boundaries and transitional periods (e.g. sit-to-stand) depending on semantic context instead of fixed time periods.
+To build a Lightweight Hybrid Architecture: Create a model combining both the spatial feature extraction capabilities of CNNs and the temporal modelling power of Vision Transformers (ViT) in an optimized manner through Knowledge Distillation, capable of running on edge hardware (i.e. IoT microcontrollers).
+To implement Energy-Efficient Privacy Mechanisms: This step involves incorporating "Security-by-Design" principles by taking a look at Federated Learning or lightweight encryption within the NanoML mechanism, in a way that data processed by users is local to them without compromising the energy budget of the system (targeting nanojoule level of consumption).
+Literature Review
+       This section is a critical analysis of the development of HAR methodologies with a focus on the development of HAR from traditional segmentation to state-of-the-art deep learning architectures, as synthesized from many state-of-the-art studies (mostly 2025).
+Signal Segmentation: from Fixed Windows to Deep Similarity
+Signal segmentation is a very important step before activity recognition. Most of the available literature is based on the Fixed-size Sliding Window (FSW) technique because of its simplicity. However, (A. Baraka and Mohd Noor 2024) proved that FSW is very flawed when it comes to capturing Transitional Activities (Activities with variable durations), resulting in misclassification more often than not. To resolve this, Baraka (2024) proposed a Deep Similarity Segmentation model which views segmentation as a binary classification task between the similarity between the adjacent windows for transitions. While this technique dramatically improved on the threshold-based, it still depends on comparisons at the window level. This research argues that the application of Self-Attention mechanisms (from Transformers) can further improve segmentation by comprehending the global context of the signal stream, which is a gap not fully addressed by segmentation literature.
+Architectural Shift: Transformers & Hybrid Models
+The landscape of HAR classifiers has changed radically in 2025. Traditional Convolutional Neural Networks (CNNs), while good at processing spatial features, are not good at processing long-range temporal dependencies. (Karim et al. 2025; Miao et al. 2025)  brought into attention that Vision Transformers (ViT) and Swin Transformers (Karim et al. 2025; Lemoine et al. 2025) provide better scalability for the modeling of complex motion sequences than CNNs. However, Transformers are very expensive computationally. Recent research has shown that Hybrid Architectures-which combine CNN for feature extraction and BiLSTMs or TCNs for temporal analysis - are the best option. (Shin et al. 2025) and (He et al. 2025) achieved state-of-the-art accuracy (>98%) using such hybrid approaches on benchmarking datasets such as WISDM (Alohali et al. 2025; Alqahtani 2025; He et al. 2025; Nandi, Singh, and Chowdhury 2025) and UCF101 (Dutta, Boongoen, and Zwiggelaar 2025; Park 2025; Shin et al. 2025). This project is composed to make use of these hybrid designs in particular to enhance the recognition of the transitional activities that were found in the segmentation phase.
+Operational Efficiency: The NanoML Revolution
+Deploying complex models on battery operated wearable devices is a serious bottleneck. A strategic pivot towards Edge AI and NanoML is identified in the literature in 2025 (Bacellar et al. 2025). Differentiable Weightless Neural Networks (DWNs) on FPGAs have been introduced by (Bacellar et al. 2025), being able to operate with an energy consumption at nanojoule scale (56 nJ/sample). Furthermore, (Burzer et al. 2025; Lamaakal et al. 2025) showed that Knowledge Distillation can be used to compress heavy Transformer models into lightweight "TinyHAR" models that can be used for smartwatches, reducing the time of inference to milliseconds. 
+This review confirms the fact that although the accuracy has reached a saturation point (>99%) the current research frontier is optimizing these models for the edge without compromising the ability to detect complex, transitional behaviors.
+Proposed Methodology
+To meet the above stated objectives within the 18-months period, the approach taken to this research is a constructive-experimental approach. The proposed framework, called "Nano-HAR," improves upon the segmentation ideas that were introduced by Baraka (2024) that incorporated them into a Transformer-based pipeline optimized to run on the edge. The methodology has four phases, which can be followed in sequence:
+Phase 1: Dynamic Attention Based Segmentation (The Input Layer)
+The first phase is to solve the "Fixed Sliding Window" bottleneck. Instead of just using statistical similarity between windows (A. Baraka and Mohd Noor 2024; BARAKA and Noor 2024), we will use a Semantic Attention Mechanism:
+Mechanism: A lightweight "Gating Network" will scan the sensor stream that is continuous. It uses a simplified Self-Attention mechanism to calculate the "Semantic Change Score" between the consecutive time steps.
+Innovation: When the score goes past a dynamic threshold, the system records a "Cut Point." This makes it possible to change the window size dynamically depending on how long the activity actually takes, and thus it can be used to capture Transitional Activities without the need to manually tune window sizes.
+Baseline Comparison: The Deep Similarity Segmentation model will be used to benchmark this module in order to provide a quantitative measure of the improvement in the detection of transitional activities.
+Phase 2: Hybrid Design of Architecture (The Core Model)
+Once it is segmented, the data flows down into the core classifier. To compromise between accuracy and efficiency we propose a Hybrid CNN-Transformer Architecture:
+Spatial Feature Extraction: A simplified CNN (based on ConvNeXt or any other modern backbones) will be used to extract some local features from the data sent by the sensor.
+Temporal Modeling: These features are then passed into a Vision Transformer block (ViT block). Unlike RNNs used in older studies, the ViT makes use of multi-head attention to model the long-range dependencies in a way that ensures that the context of complex activities remains intact.
+Optimization: To avoid the , we will use Cross-Modal Knowledge Distillation. A large "Teacher" model will be used to train a small "Student" model, so that the student maintains high accuracy using a fraction of the parameters (Lamaakal et al. 2025).
+Phase 3: Optimization of NanoML and Edge deployment (The Deployment Layer)
+This phase works on the computational constraints. The distilled model will be intensively optimized to run on FPGA or Low-Power Microcontrollers:
+Quantization: The process of reducing memory footprint by applying 8-bit integers (INT8) instead of weight float in the model.
+Weightless Neural Networks (Optional/Exploratory): Exploring implementation of logic-gate based processing (Bacellar et al. 2025) for certain parts to achieve nanojoules of energy efficiency.
+Privacy Preservation: Implementing On-Device Inference. By having segmentation and classification performed entirely on the edge device, no raw sensor data ever has to be sent to the cloud, solving the privacy gaps identified in the literature review.
+Phase 4: Evaluating and Validating
+A rigorous validation protocol for the proposed framework will be:
+Datasets: We will use standard public benchmarks (WISDM, UCI-HAR) to make sure that we are comparable to Baraka's previous results. 
+Metrics: Apart from Accuracy and F1-score, we will say that we will report Inference Latency (ms), Energy Consumption (nJ), and Model Size (KB) strictly to prove the efficiency increase.
+Contributions
+This research proposes to make the following contributions to the body of knowledge:
+A Novel Dynamic Segmentation Algorithm: An attention-driven approach that achieves better performance than fixed-window and statistical similarity approaches in detecting short and transitional activities.
+An Energy-Efficient "Nano-HAR" Architecture: A hybrid deep learning model with Battery-Optimized SOTA (>98%) accuracy for battery-operated edge devices (NanoML).
+Privacy-Preserving Framework: A validated proof-of-concept for the local privacy-preserving performance of complex activity recognition without dependence on a cloud.
+Work Plan (1.5 Years / 18 Months)
+The research is designed in three semesters (6 months each) to ensure timely completion.
+Conclusion
+In conclusion, this research proposal helps satisfy the intermediate need for HAR systems that aren't as simple as they are not being operationally viable in real-world settings in resource-constrained ecosystems. By taking a second look at the segmentation stage, this work overcomes the limitations of the Fixed Sliding Window technique by introducing a semantic and attention-based approach that is effective at capturing the nuances of the transitional activities. Simultaneously, through the "NanoML revolution" proposed the Hybrid CNN-Transformer model aims to separate between high performance and high energy consumption. The successful closure of this framework represents a considerable leap forward in Edge AI and a blueprint that can be used to build future healthcare monitoring systems on a scalable and privacy-preserving basis. Ultimately, this research aims to make HAR a vehicle for transitioning HAR from a passive data-logging device to active and intelligent keeper of independence in living.
+
+References
+Aina, Taiwo. 2025. “Feasibility Study on Radar-Based Human Activity Recognition.” Journal of Electrical and Electronic Engineering 13(4): 143–53. doi:10.11648/j.jeee.20251304.11.
+Alkahtani, Hend Khalid, Gouse Pasha Mohammed, and Radwa Marzouk. 2025. “Dual Attention-Based Recurrent Neural Network and Two-Tier Optimization Algorithm for Human Activity Recognition in Individuals with Disabilities.” Scientific Reports 15(1): 33641. doi:10.1038/s41598-025-12283-1.
+Alohali, Manal Abdullah, Mohammed Yahya Alzahrani, Asmaa Mansour Alghamdi, and Ishfaq Yaseen. 2025. “Advanced Smart Human Activity Recognition System for Disabled People Using Artificial Intelligence with Snake Optimizer Techniques.” Scientific Reports 15(1): 31372. doi:10.1038/s41598-025-16180-5.
+Alqahtani, Hamed. 2025. “Implementing Ensemble of Deep Learning Model with Optimization Techniques for Human Activity Recognition to Assist Individuals with Disabilities.” Scientific Reports 15(1): 1–17. doi:10.1038/s41598-025-09970-4.
+Bacellar, Alan T L, Mugdha P Jadhao, Shashank Nag, Priscila M V Lima, Felipe M. G. Franca, and Lizy K John. 2025. “NanoML for Human Activity Recognition.” Proceedings of tinyML Research Symposium (tinyML Research Symposium’25) 1(1): 1–7.
+Baraka, AbdulRahman M. A., and Mohd Halim Mohd Noor. 2023. “Similarity Segmentation Approach for Sensor-Based Activity Recognition.” IEEE Sensors Journal 23(17): 19704–16. doi:10.1109/JSEN.2023.3295778.
+BARAKA, ABDULRAHMAN M A, and Dr. Mohd Halim Mohd Noor. 2024. “SIMILARITY SEGMENTATION APPROACH FOR SENSOR-BASED HUMAN ACTIVITY RECOGNITION.” UNIVERSITI SAINS MALAYSIA.
+Baraka, AbdulRahman, and Mohd Halim Mohd Noor. 2024. “Deep Similarity Segmentation Model for Sensor-Based Activity Recognition.” Multimedia Tools and Applications 84(11): 8869–92. doi:10.1007/s11042-024-18933-2.
+Bassani, Giulia, Carlo Alberto Avizzano, and Alessandro Filippeschi. 2025. “Deep Learning Algorithms for Human Activity Recognition in Manual Material Handling Tasks.” Sensors 25(21): 1–20. doi:10.3390/s25216705.
+Burzer, Maximilian, Tobias King, Till Riedel, Michael Beigl, and Tobias Röddiger. 2025. “WHAR Datasets: An Open Source Library for Wearable Human Activity Recognition.” Companion of the the 2025 ACM International Joint Conference on Pervasive and Ubiquitous Computing (UbiComp Companion ’25), October 12â•ﬁ16, 2025, Espoo, Finland 1(1): 1–8. doi:10.1145/3714394.3756254.
+Dutta, Sanjay, Tossapon Boongoen, and Reyer Zwiggelaar. 2025. “Human Activity Recognition with Noise-Injected Time-Distributed AlexNet.” Biomimetics 10(9): 613. doi:10.3390/biomimetics10090613.
+Elmosallamy, Enas Selem, and Mohammed F Soliman. 2025. “Intelligent Routing for Human Activity Recognition in Wireless Body Area Networks.” Scientific Reports 15(1): 1–20. doi:10.1038/s41598-025-12114-3.
+Al Farid, Fahmid, Ahsanul Bari, Abu Saleh Musa Miah, Sarina Mansor, Jia Uddin, and S Prabha Kumaresan. 2025. “A Structured and Methodological Review on Multi-View Human Activity Recognition for Ambient Assisted Living.” Journal of Imaging 11(6): 1–27. doi:10.3390/jimaging11060182.
+Fenoglio, Dario, Mohan Li, Davide Casnici, Matias Laporte, Shkurta Gashi, Silvia Santini, Martin Gjoreski, and Marc Langheinrich. 2025. “Multi-Frequency Federated Learning for Human Activity Recognition Using Head-Worn Sensors.” Proceedings - 2024 International Conference on Intelligent Environments, IE 2024: 17–24. doi:10.1109/IE61493.2024.10599924.
+Ge, Fei, Zhenyang Dai, Zhimin Yang, Fei Wu, and Liansheng Tan. 2024. “VBCNet: A Hybird Network for Human Activity Recognition.” Sensors 24(23): 1–22. doi:10.3390/s24237793.
+He, Ji-Long, Jian-Hong Wang, Chih-Min Lo, and Zhaodi Jiang. 2025. “Human Activity Recognition via Attention-Augmented TCN-BiGRU Fusion.” Sensors 25(18): 1–36. doi:10.3390/s25185765.
+Ige, Ayokunle Olalekan, Daniel Ayo Oladele, and Malusi Sibiya. 2025. “Retentive-HAR: Human Activity Recognition from Wearable Sensors with Enhanced Temporal and Inter-Feature Dependency Retention.” Applied Sciences 15(23): 1–21. doi:10.3390/app152312661.
+Ismael, Mohammed Nasih. 2025. “Comparative Analysis of Machine Learning Methods for Human Activity Recognition Using Wearable Sensors.” Scientia. Technology, Science and Society 2(11): 114–31. doi:10.59324/stss.2025.2(11).12.
+Karim, Rezwana, Afsana Begum, Miskatul Jannat, and Abu Kowshir Bitto. 2025. “A Blended Ensemble Approach for Accurate Human Activity Recognition.” IAES International Journal of Artificial Intelligence (IJ-AI) 14(6): 5131–39. doi:10.11591/ijai.v14.i6.pp5131-5139.
+Khadidos, Adil O, and Raed Alsini. 2025. “Integrating Swin Transfer with Attention Mechanism Based Hybrid Deep Learning Driven Automated Human Activity Recognition for Enhanced Disability Assistance.” Scientific Reports 15(1): 1–21. doi:10.1038/s41598-025-19496-4.
+Lamaakal, Ismail, Chaymae Yahyati, Yassine Maleh, Khalid El Makkaoui, Ibrahim Ouahbi, Ahmed A. Abd El-Latif, Mariam Zomorodi, and Basma Abd El-Rahiem. 2025. “A Tiny Inertial Transformer for Human Activity Recognition via Multimodal Knowledge Distillation and Explainable AI.” Scientific Reports 15(1): 1–33. doi:10.1038/s41598-025-25297-2.
+Lemoine, Émile, Denahin Toffa, An Qi Xu, Improving Diagnostic Accuracy of Routine EEG for Epilepsy using Deep Learning, Authors, Émile Lemoine, Denahin Toffa, et al. 2025. “Improving Diagnostic Accuracy of Routine EEG for Epilepsy Using Deep Learning.” (51616): 1–24.
+McCarthy, Conor, Loes Quirijnen, Jan Peter van Zandwijk, Zeno Geradts, and Marcel Worring. 2025. “Hi-OSCAR: Hierarchical Open-Set Classifier for Human Activity Recognition.” Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies 9(4): 1–30. doi:10.1145/3770681.
+Miao, Mingda, Weijie Yan, Xueshan Gao, Le Yang, Jiaqi Zhou, and Wenyi Zhang. 2025. “Attention-Based CNN-BiGRU-Transformer Model for Human Activity Recognition.” Applied Sciences 15(23): 1–21. doi:10.3390/app152312592.
+Molina Arias, Ludwin, and Magdalena Smoleń. 2025. “Comparative Evaluation of ECG and Motion Signals in the Context of Activity Recognition and Human Identification.” Sensors 25(19): 1–29. doi:10.3390/s25196040.
+Nandi, Dipannyta, Pawan Kumar Singh, and Chandreyee Chowdhury. 2025. “Exploring Dimensionality with Knowledge Distillation for Human Activity Recognition.” Human-Centric Intelligent Systems 1(0123456789): 1–17. doi:10.1007/s44230-025-00112-7.
+Park, Young-jin. 2025. “Subset-Aware Dual-Teacher Knowledge Distillation with Hybrid Scoring for Human Activity Recognition.” Electronics (MDPI) 14(4130): 1–22. doi:10.3390/electronics14204130.
+Sakalauskas, Leonidas, and Ingrida Vaiciulyte. 2025. “Adaptive Learning Approach for Human Activity Recognition Using Data from Smartphone Sensors.” Applied Sciences 15(14): 1–14. doi:10.3390/app15147731.
+Shahiduzzaman, Kazi. 2025. “UActivity : A User-Specific Human Activity Recognition and Fall Detection for Elderly Care.” Engineering, Technology & Applied Science Research 15(6): 30169–74.
+Shin, Jungpil, Md. Al Mehedi Hasan, Md. Maniruzzaman, Satoshi Nishimura, and Sultan Alfarhood. 2025. “Video-Based Human Activity Recognition Using Hybrid Deep Learning Model.” Computer Modeling in Engineering & Sciences 143(3): 3615–38. doi:10.32604/cmes.2025.064588.
+Shiri, Farhad Mortezapour, Thinagaran Perumal, Norwati Mustapha, and Raihani Mohamed. 2025. “Deep Learning and Federated Learning in Human Activity Recognition with Sensor Data: A Comprehensive Review.” Computer Modeling in Engineering & Sciences 145(2): 1389–1485. doi:10.32604/cmes.2025.071858.
+Sochopoulos, Andreas, Tommaso Poliero, Jamil Ahmad, Darwin G Caldwell, and Christian Di Natali. 2025. “Human Activity Recognition Algorithms for Manual Material Handling Activities.” Scientific Reports 15(1): 1–14. doi:10.1038/s41598-024-81312-2.
+Thuong, Vu Thi, Duc-Nghia Tran, Duc-Tan Tran, Bui Thi Thu, Vu Duong Tung, Nguyen Thi Anh Phuong, Phung Cοng Phi Khanh, Pham Khanh Tung, and Manh-Tuyen Vi. 2024. “Effective Human Activity Recognition through Accelerometer Data.” Engineering, Technology & Applied Science Research 14(5): 16499–510. doi:10.48084/etasr.8211.
+Ting, Xian Wu, Ying Han Pang, Zheng You Lim, Shih Yin Ooi, and Fu San Hiew. 2025. “Conv-ScaleNet: A Multiscale Convolutional Model for Federated Human Activity Recognition.” AI 6(9): 218. doi:10.3390/ai6090218.
+Weng, Yuxuan, Tianyue Zheng, Yanbing Yang, and Jun Luo. 2026. “FM-Fi 2.0: Foundation Model for Cross-Modal Multi-Person Human Activity Recognition.” IEEE Transactions on Mobile Computing 25(1): 566–82. doi:10.1109/TMC.2025.3593406.
+Wieland, Christoph, and Victor Pankratius. 2025. “Enhancing Sensor-Based Human Activity Recognition With Multiresolution Wavelet-Attention.” IEEE Sensors Journal 25(14): 26920–30. doi:10.1109/JSEN.2025.3571572.
+Yamane, Takahiro, Moeka Kimura, and Mizuki Morita. 2025. “Effects of Sampling Frequency on Human Activity Recognition with Machine Learning Aiming at Clinical Applications.” Sensors 25(12): 3780. doi:10.3390/s25123780.
+Yeon, Taeyoung, Vasco Xu, Henry Hoffmann, and Karan Ahuja. 2025. “WatchHAR: Real-Time On-Device Human Activity Recognition System for Smartwatches.” ICMI 2025 - Proceedings of the 27th International Conference on Multimodal Interaction 1(1): 387–94. doi:10.1145/3716553.3750775.
+Zhu, Peiwang, Chengwu Liang, Yalong Liu, and Songqi Jiang. 2025. “Multi-Grained Temporal Clip Transformer for Skeleton-Based Human Activity Recognition.” Applied Sciences 15(9): 4768. doi:10.3390/app15094768.
+

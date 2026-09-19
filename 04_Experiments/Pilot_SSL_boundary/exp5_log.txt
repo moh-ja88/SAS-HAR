@@ -1,0 +1,7 @@
+12 train streams, 1697 true cuts (diag only); test 144 GT
+
+iter 0 (MMD): pseudo-cuts=2355 (true=1697, prec=0.00) | TEST AUPRC=0.256 F1=0.332 oracle=0.335
+iter 1 (head): pseudo-cuts=158 (0.07x of iter0) prec=0.03 | TEST AUPRC=0.205 F1=0.101 oracle=0.161
+  drift guard triggered — stopping
+
+saved results/phaseB_seed42.json

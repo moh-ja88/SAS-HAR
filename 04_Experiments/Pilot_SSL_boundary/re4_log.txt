@@ -1,0 +1,4 @@
+probe check: test acc=0.930
+val: 130 GT, thr=15.62z, F1=0.636
+
+S7: probe-contrast r=+0.434 AUPRC=0.426 (chance 0.063) | F1=0.773 P=0.77 R=0.78 MAE=0.18s tp=107/138

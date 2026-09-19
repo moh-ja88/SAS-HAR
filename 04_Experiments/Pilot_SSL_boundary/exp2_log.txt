@@ -1,0 +1,19 @@
+val scale side=0.5s gap=0.25s: thr=1.53z F1=0.117
+val scale side=1.0s gap=0.25s: thr=1.79z F1=0.121
+val scale side=2.0s gap=0.25s: thr=1.97z F1=0.114
+val scale side=1.0s gap=0.5s: thr=2.97z F1=0.123
+val scale side=2.0s gap=0.5s: thr=2.72z F1=0.111
+best val scale: side=1.0s gap=0.5s
+
+--- S7: 2231s, 141 GT ---
+  MMD side=0.5s gap=0.25s      r=+0.013 AUPRC=0.068 (chance 0.064)
+  MMD side=1.0s gap=0.25s      r=+0.017 AUPRC=0.071 (chance 0.064)
+  MMD side=2.0s gap=0.25s      r=+0.019 AUPRC=0.074 (chance 0.064)
+  MMD side=1.0s gap=0.5s       r=+0.012 AUPRC=0.069 (chance 0.064) | F1=0.094 P=0.08 R=0.12 MAE=0.19s
+  MMD side=2.0s gap=0.5s       r=+0.023 AUPRC=0.075 (chance 0.064)
+--- S9: 58s, 4 GT ---
+  MMD side=0.5s gap=0.25s      r=+0.057 AUPRC=0.098 (chance 0.069)
+  MMD side=1.0s gap=0.25s      r=+0.066 AUPRC=0.094 (chance 0.069)
+  MMD side=2.0s gap=0.25s      r=-0.006 AUPRC=0.064 (chance 0.069)
+  MMD side=1.0s gap=0.5s       r=+0.038 AUPRC=0.082 (chance 0.069) | F1=0.200 P=0.17 R=0.25 MAE=0.16s
+  MMD side=2.0s gap=0.5s       r=-0.015 AUPRC=0.061 (chance 0.069)

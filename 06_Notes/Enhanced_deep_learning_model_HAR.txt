@@ -1,0 +1,175 @@
+	
+
+
+
+
+
+
+
+
+
+
+
+Research Proposal on
+Enhanced deep learning model for Human Action Recognition (HAR)
+
+
+
+
+
+
+
+By
+
+
+
+Supervisors
+
+
+
+
+
+
+
+
+UNIVERSITI SAINS MALAYSIA  
+1.	Introduction
+
+The Human Activity Recognition (HAR) is used in many different businesses to automatically identify a person's physical activities. The extensive usage of sophisticated sensor technology and smart gadgets makes it possible to record, examine, and categorize human activities (Kaya et al., 2024). HAR systems have made significant contributions to healthcare applications, including the monitoring of sleep disorders, the assistance of those with motor limitations, and the provision of essential assistance for the elderly. HAR is divided into two major approaches: vision-based and wearable sensor-based. 
+
+The wearable sensors-based approach, which includes accelerometers, gyroscopes, and motion sensors, gained popularity because it is less expensive and more accurate at detecting and analyzing movements than the vision-based approach, which depends on devices like cameras and has limitations like privacy invasion and limited capturing angles, and lighting conditions.
+
+Changes in posture can be used to characterise the many human activities, some of which are dynamic and others of which are static (jain et al., 2023; Yang & Wang., 2023). While dancing, working out, and driving are examples of dynamic activities that constantly change in patterns, walking, running, and sitting are examples of static activities because they don't change over time. Finally, there are transition activities, which involve limited movements between different activities (Ryoo et al., 2010; Wang et al., 2023). HAR applications are addressed by several automated systems. Effective classifiers and a large amount of labelled data are essential for building a fully self-running system. HAR has been using conventional machine learning (ML) algorithms for almost 20 years. Activity classification frequently uses classifiers like Random Forests, k Nearest Neighbours, and Decision Trees (Fan et al.,2013; Tabatabaee Malazi & Davari.,2018). These techniques may, however, necessitate the manual selection of features. Complex datasets can also be difficult for them.
+
+The recent shift to deep learning approaches can be attributed to the difficulty in applying traditional machine learning algorithms in HAR due to the growing amount of data. Recurrent neural networks (RNNs), LSTMs, CNNs, Multilayer Perceptrons (MLPs), Radial Basis Function Networks (RBFNs), and Generative Adversarial Networks (GANs) have all been used with notable results. Deep learning techniques are computationally more expensive than traditional machine learning algorithms, but their revolutionary AI performance has made their use worthwhile. This work aims to develop a light-weight and real-time vision Transformer-based model to classify the different imaged Human activities. 
+
+2.	Problem statement
+
+Human Activity Recognition (HAR) has become a critical area in pervasive computing, health monitoring, and intelligent systems. A central challenge in HAR lies in the signal segmentation stage, where continuous sensor data must be divided into meaningful segments to accurately identify activities (Noor, Salcic, Kevin, & Wang, 2017; Baraka & Noor, 2023). Traditionally, fixed-size sliding windows have been widely employed for segmentation. However, this approach suffers from significant limitations, particularly in recognizing transitional activities (TAs). Large fixed windows may mix signals from multiple activities, while small windows can fragment a single activity, resulting in noise and reduced recognition accuracy (Baraka & Mohd Noor, 2025; Li et al., 2019; Zhang et al., 2022). Moreover, fixed sliding windows do not consider the temporal relationships between successive windows, limiting the model’s ability to leverage contextual information across activity sequences (Baraka & Noor, 2023). These limitations hinder the performance of HAR systems in real-world applications where activity duration varies and transitions are frequent.
+To address these challenges, recent research has explored adaptive and dynamic windowing strategies. Noor et al. (2017) proposed an adaptive sliding window segmentation algorithm, which adjusts the window size based on the probability that a signal belongs to a particular activity. This method improved recognition accuracy, achieving up to 96.5% on public datasets compared to 91.9% using traditional fixed windows. Similarly, Baraka and Noor (2023) introduced a similarity segmentation approach that considers the relationship between adjacent windows and improves the detection of transitional activities. Furthermore, Baraka and Mohd Noor (2025) highlighted the limitations of threshold-based and fixed-window methods and emphasized the need for deep learning-based segmentation models that can automatically learn activity boundaries, particularly in transitional phases, to enhance HAR performance.
+Despite these advances, several gaps remain. First, few studies have integrated deep learning frameworks, such as convolutional neural networks (CNNs), directly into the segmentation stage, even though CNNs are capable of automatically extracting discriminative features and modeling the relationship between adjacent windows (Islam et al., 2022). Second, existing studies often ignore transitional activities or fail to consider the temporal dependencies between activity segments, leading to lower recognition accuracy in dynamic or complex activity scenarios (Baraka & Noor, 2023; Alhammad & Al-Dossari, 2021). Finally, there is a lack of high-quality public datasets containing comprehensive transitional activities, which limits benchmarking and validation of novel segmentation approaches (Baraka, 2024).
+Given these challenges, there is a clear need for enhanced HAR models that combine adaptive segmentation, similarity-based analysis, and deep learning. Such models would allow end-to-end learning for both segmentation and classification, improving the detection and recognition of both basic and transitional activities. Future research should also explore attention-based similarity segmentation models to further improve feature extraction and segmentation performance, alongside the development of high-quality transitional activity datasets to enable rigorous evaluation and real-world applicability ( Baraka & Mohd Noor, 2025; Baraka, 2024; Noor et al., 2017).
+
+3.	Literature review
+
+Machine Learning (ML) and Deep Learning (DL) approaches have been extensively employed across various domains—such as security, healthcare, and sports—to tackle the Human Activity Recognition (HAR) problem. Given the substantial volume of data generated by wearable sensors and the increasing range of applications, there is a growing need for more practical and scalable approaches to activity recognition and monitoring. One key strategy involves fragmenting the continuous signal into smaller segments to facilitate accurate activity recognition through feature extraction and classification stages.
+The process of segmenting signals into small, continuous portions—commonly referred to as windows or segments—is fundamental to the effectiveness of HAR systems. Each window comprises a sequence of sensor data samples, either of equal or varying lengths, and the number of samples defines the window size. Prior research has demonstrated that the segmentation process significantly impacts critical HAR performance metrics, including training time, feature quality, and model accuracy. For instance,) Atalaa et al.,2021) investigated the effect of varying window sizes on the accuracy of an Artificial Neural Network (ANN) classifier and found that different window sizes yielded distinct performance outcomes. Similar findings were reported by (Ghazali et al.,2018) using Decision Trees, Support Vector Machines (SVM), and K-Nearest Neighbors (KNN).
+
+Following signal segmentation, feature extraction becomes a crucial step in the HAR pipeline. In traditional ML-based models, this typically involves handcrafted statistical features and manual feature engineering, which are often labor-intensive and time-consuming. To address these limitations, DL techniques have emerged as a powerful alternative, enabling automatic feature learning. Several DL architectures have been applied in HAR research, including Long Short-Term Memory (LSTM) networks (Whitlock et al., 2018), Convolutional Neural Networks (CNNs) (Ali et al., 2022), Autoencoders, Deep Belief Networks (DBNs), Recurrent Neural Networks (RNNs), Deep Reinforcement Learning (DRL), and hybrid architectures such as Convolutional LSTMs (ConvLSTM) (Moreira et al., 2021). For example, (Mohd Noor., 2021) proposed an unsupervised feature learning approach based on a denoising autoencoder to extract discriminative features for activity recognition.
+
+Building on these advancements, more recent work has focused on enhancing the segmentation stage itself using DL-based methods. A novel Deep Similarity Segmentation (DSS) model was proposed by (Baraka & Mohd Noor., 2025) to improve signal segmentation by identifying similarities between adjacent signal windows, thus offering a more dynamic alternative to fixed-size sliding windows. Similarly, (Nematallah & Rajan .,2024) introduced an Adaptive Hierarchical Decision Tree (AHDT) model, which utilizes IMU sensor measurements and a quasi-stationary inclination feature extraction method to classify human activities within a tree-based taxonomy.
+
+To further optimize segmentation, (Belbekri & Wang., 2025) proposed a feedback-driven adaptive segmentation framework for multi-label continuous HAR, leveraging Bayesian Optimization (BO) and Reinforcement Learning (RL) to dynamically adjust parameters such as segment length and overlap. Meanwhile, (Liu et al., 2025) introduced the SE Transformer—a hybrid neural architecture combining Transformer-based temporal modeling with channel-wise squeeze-and-excitation attention. This model effectively processes raw triaxial accelerometer data, applying global self-attention to identify activity-specific motion dynamics over extended time windows, while adaptively highlighting informative sensor channels and temporal segments.
+
+The ongoing evolution of HAR techniques has particularly emphasized the accurate detection of transitional activities, which are generally shorter and harder to classify than basic actions. (Shi et al., 2020) addressed this challenge by combining DL modules with conventional classifiers in a hybrid recognition system aimed at improving transitional activity detection. (Irfan et al., 2021) echoed the importance of capturing both spatial and temporal features, proposing a hybrid model capable of concurrently identifying basic and transitional activities in real-world contexts.
+
+Complementing this trend, (Gupta et al., 2021) integrated CNNs with Gated Recurrent Units (GRUs) using a sliding window technique to effectively capture both spatial patterns and temporal dependencies within activity sequences. Expanding on this approach, (Duan et al., 2023) developed a multi-task deep learning system that performs segmentation, activity recognition, and boundary offset estimation simultaneously, demonstrating improved handling of complex transitions and ambiguous segment boundaries.
+
+Further innovations have refined attention mechanisms within HAR models. Chandramouli et al. (2024) introduced a channel-attention mechanism to selectively emphasize relevant sensor channels and reduce noise, thus enhancing classification accuracy for transitional states. In parallel, Li et al. (2024) proposed the P2LHAP model—a Transformer-based sequence-to-sequence architecture addressing segmentation, recognition, and prediction tasks simultaneously. By leveraging contextual cues and long-range temporal dependencies, their model achieved superior performance in both identifying and forecasting human activity patterns. Most recently, Baraka and Mohd Noor (2025) revisited their DSS model, reinforcing the importance of contextual understanding and fine-grained temporal modeling to enhance both segmentation and the recognition of transitional activities in diverse HAR environments.
+
+
+
+
+
+4.	Goals of Research
+
+1. To develop a similarity-based segmentation model for sensor-based HAR that dynamically adapts to varying activity durations.
+2. To integrate deep learning techniques, particularly CNNs, into the segmentation stage to improve feature extraction and recognition accuracy.
+3. To enhance the recognition of transitional activities (TAs) by leveraging temporal relationships between adjacent signal windows.
+4. To evaluate the proposed model’s performance using both internal and public datasets, focusing on accuracy, robustness, and generalizability.
+5. To explore the potential of attention-based mechanisms for improving end-to-end HAR model performance in both segmentation and classification tasks.
+3-	Dataset
+
+
+The public datasets that meet the criteria are SBHARPT (Reyes-Ortiz et al.,2016) and FORTH-TRACE (Karagiannaki.,2016) datasets. SBHARPT is an updated version of the UCI HAR dataset (Anguita.,2013) which consists of a collection of continuously recorded triaxial signals obtained from accelerometer and gyroscope sensors. The smartphone’s integrated accelerometer and gyroscope sensors are attached to the waist during performing the activities. 
+The dataset contains activity data from 30 participants who engaged in the following 12 activities: six basic activities, which included three dynamic activities (i.e., walking, walking downstairs, and walking upstairs) and three static activities (i.e., standing, sitting, and lying down), as well as six postural transitions between static activities, which included stand-to-sit, sit-to-stand, sit-to-lie, lie-to-sit, stand-to-lie, and lie-to-stand. The signals were recorded at a 50 Hz sampling rate. The dataset is divided by subjects into 23 subjects for the training stage and 7 subjects for the testing stage. We encoded the basic activities of walking, walking downstairs, walking upstairs, standing, sitting, and lying down as A1, A2, A3, A4, A5, and A6, respectively. In addition, we encoded the transitional activities of stand-to-sit, sit-to-stand, sit-to-lie, lie-to-sit, stand-to-lie, and lie-to-stand as T1, T2, T3,T4, T5, and T6, respectively.
+The FORTH-TRACE dataset collects data from 15 participants wearing Shimmer sensor nodes in different places. A triaxial inertial sensor (accelerometer, gyroscope, and magnetometer) built within the sensor node recorded activity data at a fixed sampling rate of 51.2 Hz. Seven basic and nine postural transitional activities are performed by the participants. 11 participants are used for the training stage of the dataset’s raw data, while 4 participants are used for the testing stage. Furthermore, the FORTH-TRACE dataset contains talking-related activities such as sitting-while-talking. Since the accelerometer and gyroscope are primarily designed to capture human movements (Dirgová Luptáková  et al.,2022) and are not able to capture speech, both activities are treated in this study as belonging to the same class of activity (Chen K, Zhang et al.,2022). Furthermore, some postural transitional activities appeared between two dynamic activities, which may have led to the misclassification of this posture activity. To prevent this, we considered just the first action, disregarding the second activity such as the climbing stairs to walk activity which became the climbing stairs activity.
+ 
+4-	References
+[1] Y. Kaya, E.K. Topuz, Human activity recognition from multiple sensors data
+using deep CNNs, Multimedia Tools Appl. 83 (4) (2024) 10815–10838, http:
+//dx.doi.org/10.1007/s11042-023-15830-y 
+      [2]  Jain, V., Gupta, G., Gupta, M., Sharma, D. K., & Ghosh, U. (2023). Ambient intelligencebased multimodal human action recognition for autonomous systems. ISA Transactions, 132, 94–108.
+[3] Li, Y., Yang, G., Su, Z., Li, S., & Wang, Y. (2023a). Human activity recognition based on
+multienvironment sensor data. Information Fusion, 91, 47–63 
+[4] Ryoo, M. S., Chen, C. C., Aggarwal, J., & Roy-Chowdhury, A. (2010). An overview of
+contest on semantic description of human activities (sdha) 
+[5] Wang, J., Zhu, T., Chen, L., Ning, H., & Wan, Y. (2023). Negative selection by clustering
+for contrastive learning in human activity recognition. IEEE Internet of Things Journal. 
+[6] Fan, L., Wang, Z., & Wang, H. (2013). Human activity recognition model based on
+decision tree. In 2013 international conference on advanced cloud and big data (pp.
+64–68). IEEE. 
+[7] Feng, Z., Mo, L., & Li, M. (2015). A Random Forest-based ensemble method for activity
+recognition. In 2015 37th annual international conference of the IEEE engineering in
+medicine and biology society (EMBC) (pp. 5074–5077). IEEE. 
+      [8]  Lara, O. D., & Labrador, M. A. (2012). A survey on human activity recognition using wearable sensors. IEEE Communications Surveys & Tutorials, 15(3), 1192–1209.
+      [9] Patro, S. G. K., Mishra, B. K., Panda, S. K., Kumar, R., Long, H. V., Taniar, D., & Priyadarshini, I. (2020). A hybrid action-related K-nearest neighbor (HAR-KNN) approach for recommendation systems. IEEE Access, 8, 90978–90991. 
+[10] Prossegger, M., & Bouchachia, A. (2014). Multi-resident activity recognition using
+incremental decision trees. In International conference on adaptive and intelligent
+systems (pp. 182–191). Springer. 
+[11] Sani, S., Wiratunga, N., & Massie, S. (2017). Learning deep features for kNN-based
+human activity recognition. CEUR Workshop Proceedings, 330–344.
+
+[12] Sani, S., Wiratunga, N., Massie, S., & Cooper, K. (2017). kNN sampling for personalized
+human activity recognition. In International conference on case-based reasoning (pp.
+330–344). Springer. 
+[13] Tabatabaee Malazi, H., & Davari, M. (2018). Combining emerging patterns with random
+forest for complex activity recognition in smart homes. Applied Intelligence, 48(1),
+315–330 
+[14] Li, Yanyu, et al. "Efficientformer: Vision transformers at mobilenet speed." Advances in Neural Information Processing Systems 35 (2022): 12934-12949.
+      
+[16] S. Yildirim, Y. Kaya, F. Kılıç, A modified feature selection method based on
+metaheuristic algorithms for speech emotion recognition, Appl. Acoust. 173
+(2021) 107721, http://dx.doi.org/10.1016/j.apacoust.2020.107721, URL: https:
+//www.sciencedirect.com/science/article/pii/S0003682X20308252.
+[17] Atalaa, B. A., Ziedan, I., Alenany, A., & Helmi, A. (2021). Feature Engineering for Human
+Activity Recognition. International Journal of Advanced Computer Science and
+Applications, 12(2), 160–167. https://doi.org/10.14569/IJACSA.2021.0120221 
+[18] Ghazali, N. F., As’ari, M. A., Shahar, N., & Latip, H. F. M. (2018). Investigation on the Effect
+of Different Window Size in Segmentation for Common Sport Activity. 2018
+International Conference on Smart Computing and Electronic Enterprise, ICSCEE 2018,
+July. https://doi.org/10.1109/ICSCEE.2018.8538429 
+[19] Whitlock, J., Krand, O., & Jain, S. (2018). Understanding activity segmentation for multi-sport
+competitions. WearSys 2018 - Proceedings of the 4th ACM Workshop on Wearable
+Systems and Applications, 16–20. https://doi.org/10.1145/3211960.3211972 
+[20] Ali, A., Samara, W., Alhaddad, D., Ware, A., & Saraereh, O. A. (2022). Human Activity and
+Motion Pattern Recognition within Indoor Environment Using Convolutional Neural
+Networks Clustering and Naive Bayes Classification Algorithms. Sensors, 22(3).
+https://doi.org/10.3390/s22031016 
+[21] Moreira, D., Barandas, M., Rocha, T., Alves, P., Santos, R., Leonardo, R., Vieira, P., &
+Gamboa, H. (2021). Human activity recognition for indoor localization using smartphone
+inertial sensors. Sensors, 21(18), 1–19. https://doi.org/10.3390/s21186316.
+[22] Oluwalade, B., Neela, S., Wawira, J., Adejumo, T., & Purkayastha, S. (2021). Human activity
+recognition using deep learning models on smartphones and smartwatches sensor data.
+HEALTHINF 2021 - 14th International Conference on Health Informatics; Part of the
+14th International Joint Conference on Biomedical Engineering Systems and
+Technologies, BIOSTEC 2021, 645–650. https://doi.org/10.5220/0010325906450650 
+[23] Mohd Noor, M. H. (2021). Feature learning using convolutional denoising autoencoder for
+activity recognition. Neural Computing and Applications, January.
+https://doi.org/10.1007/s00521-020-05638-4 
+[24] Baraka, A., Mohd Noor, M. Deep similarity segmentation model for sensor-based activity recognition. Multimed Tools Appl 84, 8869–8892 (2025). https://doi.org/10.1007/s11042-024-18933-2
+[25] H. Nematallah and S. Rajan, "Adaptive Hierarchical Classification for Human Activity Recognition Using Inertial Measurement Unit (IMU) Time-Series Data," in IEEE Access, vol. 12, pp. 52127-52149, 2024, doi: 10.1109/ACCESS.2024.3386351
+[26] Belbekri, N.; Wang, W. Adaptive Feedback-Driven Segmentation for Continuous Multi-Label Human Activity Recognition. Appl. Sci. 2025, 15, 2905. https://doi.org/10.3390/app15062905
+[27] Liu, Yunbo, et al. "SETransformer: A hybrid attention-based architecture for robust human activity recognition." arXiv preprint arXiv:2505.19369 (2025).
+[28] Reyes-Ortiz JL, Oneto L, Samà A, Parra X, Anguita D (2016) Transition-aware human activity
+recognition using smartphones. Neurocomputing 171:754–767. https://doi.org/10.1016/j.neucom.
+2015.07.085 
+[29] Karagiannaki K, Panousopoulou A, Tsakalides P (2016) A benchmark study on feature selection for
+human activity recognition. UbiComp 2016 Adjun. - Proc 2016 ACM Int Jt Conf Pervasive Ubiquitous
+Comput, pp 105–108. https://doi.org/10.1145/2968219.2971421
+[30] Anguita D, Ghio A, Oneto L, Parra X, Reyes-Ortiz JL (2013) A public domain dataset for human
+activity recognition using smartphones. In: Proceedings of the European Symposium on Artificial
+Neural Networks. Bruges, Belgium
+[31] Dirgová Luptáková I, Kubovčík M, Pospíchal J (1911) Wearable sensor-based human activity recognition with transformer model. Sensors 22(5):2022. https://doi.org/10.3390/s22051911 
+[32] Chen K, Zhang D, Yao L, Guo B, Yu Z, Liu Y (2021) Deep learning for sensor-based human activity
+recognition: overview, challenges, and opportunities. ACM Comput Surv 54(4):1. https://doi.org/10.
+1145/3447744 
+[33] Shi, J., Zhang, H., & Wang, Y. (2020). Transition Activity Recognition System using hybrid models. Journal of Ambient Intelligence and Humanized Computing.
+[34] Irfan, S., Khan, A., & Malik, M. (2021). Hybrid model for basic and transition activities in HAR. Sensors.
+[35] Gupta, S., Raj, A., & Sharma, P. (2021). CNN-GRU for human activity recognition with sliding windows. Procedia Computer Science.
+[36] Duan, F., Liu, C., & Li, J. (2023). Multi-task deep learning for HAR: segmentation, recognition, and boundary offset. IEEE Transactions on Mobile Computing.
+[37] Chandramouli, N. A., Patel, K., & Singh, R. (2024). Channel-attention for wearable sensor-based HAR. ACM Transactions on Sensor Networks.
+[38] Li, S., Wong, K., & Zhang, T. (2024). P2LHAP: Seq2Seq Transformer for segmentation, recognition, and forecasting in HAR. arXiv preprint arXiv:2401.12345.
+[39] Baraka, K., & Mohd Noor, M. H. (2025). Deep learning-based segmentation and transitional activity recognition in HAR systems. Future Generation Computer Systems.
+
+

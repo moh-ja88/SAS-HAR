@@ -1,0 +1,25 @@
+# Nested git repo (SAS-HAR clone — has its own origin)
+05_Code/
+
+# Legacy bulk archive (14k files, not research-active)
+_archive/
+
+# Junk
+nul
+**/nul
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Environments
+.venv/
+venv/
+
+# Large generated artifacts (regenerable)
+04_Experiments/**/results/*.png
+*.pt
+*.npz
+
+# OS/office lock files
+~$*

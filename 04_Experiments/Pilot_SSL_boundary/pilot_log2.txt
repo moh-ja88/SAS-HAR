@@ -1,0 +1,48 @@
+C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\run_pilot.py:95: RuntimeWarning: Mean of empty slice
+  agg = lambda k: float(np.nanmean([p[k] for p in per_chunk]))
+C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\run_pilot.py:162: RuntimeWarning: Mean of empty slice
+  cp and all(np.nanmean([c["me_s"] for c in cp if c["subject"] == s]) < 0.5
+device=cuda  data=C:\Work\OpenCode\PhDYasmeen\05_Code\PhD-HAR-Segmentation\data\pamap2\PAMAP2_Dataset\Protocol
+subject 1: 1 chunks, 62 min, 13 transitions
+subject 2: 1 chunks, 74 min, 13 transitions
+subject 3: 1 chunks, 42 min, 10 transitions
+subject 5: 1 chunks, 62 min, 13 transitions
+subject 6: 1 chunks, 60 min, 13 transitions
+subject 8: 1 chunks, 67 min, 13 transitions
+subject 4: 1 chunks, 54 min, 11 transitions
+subject 7: 1 chunks, 52 min, 12 transitions
+subject 9: 1 chunks, 1 min, 0 transitions
+
+=== seed 42 ===
+windows: train=14277 val=2242
+trained in 61s, best val loss 0.0729
+val F1[cp] ~ 0.000, thr=0.08161
+val F1[mtm] ~ 0.003, thr=0.008829
+S7 CP : F1=0.002 (B0=0.001, chance=0.006) r=-0.02 MAE=0.26s
+S7 MTM: F1=0.003 (B0=0.001, chance=0.006) r=-0.01 MAE=0.29s
+S9 CP : F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+S9 MTM: F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+
+=== seed 43 ===
+windows: train=14277 val=2242
+trained in 39s, best val loss 0.0784
+val F1[cp] ~ 0.000, thr=0.08007
+val F1[mtm] ~ 0.003, thr=0.01258
+S7 CP : F1=0.000 (B0=0.001, chance=0.007) r=-0.02 MAE=nans
+S7 MTM: F1=0.003 (B0=0.001, chance=0.007) r=-0.01 MAE=0.15s
+S9 CP : F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+S9 MTM: F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+
+=== seed 44 ===
+windows: train=14277 val=2242
+trained in 64s, best val loss 0.0738
+val F1[cp] ~ 0.000, thr=0.08836
+val F1[mtm] ~ 0.003, thr=0.002645
+S7 CP : F1=0.000 (B0=0.001, chance=0.008) r=-0.02 MAE=nans
+S7 MTM: F1=0.003 (B0=0.001, chance=0.007) r=-0.01 MAE=0.34s
+S9 CP : F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+S9 MTM: F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+
+=== criteria ===
+S2_cp_beats_B0_by_0.10: FAIL
+S3_MAE_under_0.5s: FAIL

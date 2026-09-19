@@ -1,0 +1,1392 @@
+INTRODUCTION
+
+1.1 Background
+
+Human Activity Recognition (HAR) has become one of the most active
+research areas in artificial intelligence, wearable computing, and
+healthcare due to its ability to automatically identify human physical
+activities from sensor data. Recent advances in wearable sensing
+technologies, including smartphones, smartwatches, fitness trackers, and
+inertial measurement units (IMUs), have enabled continuous monitoring of
+human behavior in real-world environments. Such technologies play an
+essential role in numerous applications, including healthcare
+monitoring, elderly assistance, rehabilitation, smart homes, sports
+analytics, occupational safety, and human-computer interaction.
+
+Unlike vision-based activity recognition systems, wearable sensor-based
+HAR offers several advantages, including lower computational cost,
+better privacy preservation, robustness under different lighting
+conditions, and continuous monitoring without requiring cameras.
+Consequently, wearable sensing has become the preferred solution for
+many real-time intelligent healthcare applications.
+
+Recent advances in deep learning have significantly improved HAR
+performance. Convolutional Neural Networks (CNNs) have demonstrated
+excellent capability in extracting local spatial features from raw
+inertial sensor signals, while Transformer architectures have shown
+remarkable success in modeling long-range temporal dependencies. These
+models have substantially increased recognition accuracy across
+benchmark datasets, with many recent studies reporting accuracies
+exceeding 95%.
+
+Despite these achievements, current HAR systems still rely heavily on a
+conventional processing pipeline that segments continuous sensor streams
+into fixed-length sliding windows before feature extraction and activity
+classification. Although simple and computationally efficient, this
+segmentation strategy introduces artificial temporal boundaries that
+rarely correspond to the actual beginning and ending of human
+activities. Consequently, activities with variable durations,
+overlapping movements, and transitional motions are frequently
+fragmented into multiple windows or merged with neighboring activities,
+leading to ambiguous feature representations and reduced recognition
+performance.
+
+Furthermore, modern deep learning models require large quantities of
+accurately labeled training data. Constructing such datasets is
+extremely expensive because sensor annotations must be performed
+manually by domain experts, particularly for transitional activities
+whose temporal boundaries are often subjective and difficult to define
+consistently. As a result, the scalability of supervised HAR systems
+remains limited when deployed in real-world scenarios.
+
+Another emerging challenge concerns the recognition of transitional
+activities, such as sit-to-stand, stand-to-sit, walking-to-running, or
+turning movements. These activities typically last only a few seconds,
+exhibit substantial inter-subject variability, and occur precisely at
+the boundaries between consecutive activities. Existing HAR systems
+generally focus on recognizing steady-state activities while treating
+transition periods as noise or misclassification regions, despite their
+critical importance in healthcare monitoring, fall prevention,
+rehabilitation assessment, and elderly care.
+
+These limitations indicate that future HAR systems should move beyond
+conventional activity classification toward understanding the semantic
+structure of continuous human behavior. Instead of relying on manually
+designed segmentation strategies and extensive labeled datasets,
+intelligent systems should automatically discover meaningful activity
+boundaries, learn robust activity representations from unlabeled sensor
+streams, and accurately recognize both steady and transitional
+activities within a unified learning framework.
+
+Recent developments in self-supervised learning have demonstrated
+remarkable potential for learning meaningful representations without
+requiring extensive manual annotations. By exploiting intrinsic
+relationships within unlabeled sensor signals, self-supervised learning
+enables models to acquire generalized activity representations that can
+later be adapted to downstream recognition tasks using only limited
+labeled data. Similarly, attention-based temporal modeling provides an
+effective mechanism for capturing contextual relationships across long
+sensor sequences, making it particularly suitable for identifying
+activity boundaries and modeling transitional movements.
+
+Motivated by these observations, this research proposes a Boundary-Aware
+Self-Supervised Human Activity Recognition (BASS-HAR) Framework, a
+unified architecture that integrates semantic boundary discovery,
+boundary-guided self-supervised representation learning, and
+context-aware temporal modeling to address the fundamental limitations
+of current HAR systems. Unlike existing approaches that treat
+segmentation, representation learning, and activity recognition as
+independent processes, the proposed framework jointly optimizes these
+components within a single end-to-end architecture. The framework aims
+to automatically discover semantic activity boundaries, learn
+discriminative representations from largely unlabeled wearable sensor
+data, and improve the recognition of challenging transitional activities
+while maintaining high recognition performance for continuous human
+activity recognition.
+
+This research is expected to contribute not only to the advancement of
+wearable sensor-based HAR but also to broader applications of
+intelligent healthcare, ambient assisted living, and next-generation
+context-aware wearable computing systems.
+
+1.2 Research Motivation
+
+The rapid growth of wearable sensing technologies has created
+unprecedented opportunities for continuous human activity monitoring
+across healthcare, smart living, rehabilitation, and personalized
+fitness applications. Modern wearable devices are now capable of
+continuously collecting large volumes of inertial sensor data from
+individuals during their daily activities. This continuous sensing
+capability has shifted the focus of Human Activity Recognition (HAR)
+research from laboratory-based experiments toward real-world intelligent
+monitoring systems.
+
+Despite remarkable progress in deep learning-based HAR, existing systems
+still suffer from several fundamental limitations that restrict their
+practical deployment. Most current approaches continue to rely on
+manually defined fixed-size sliding windows to segment continuous sensor
+streams before classification. Although computationally simple,
+fixed-window segmentation ignores the natural temporal boundaries of
+human activities and often splits a single activity into multiple
+windows or merges different activities into one segment. Consequently,
+important temporal information, particularly during activity
+transitions, is lost before the learning process even begins.
+
+Another significant challenge is the strong dependence of modern HAR
+models on large-scale labeled datasets. High-quality annotation of
+wearable sensor data is labor-intensive, time-consuming, and often
+requires expert knowledge to determine the precise start and end of each
+activity. This challenge becomes even more severe for transitional
+activities, whose boundaries are inherently ambiguous and vary
+considerably among different individuals. As wearable sensing
+applications continue to expand into healthcare and ambient assisted
+living, collecting sufficiently labeled datasets for every environment,
+user population, and activity type becomes increasingly impractical.
+
+Recent advances in self-supervised learning have demonstrated that deep
+neural networks can learn meaningful representations directly from
+unlabeled data by exploiting intrinsic temporal structures within the
+data itself. However, most existing self-supervised HAR approaches still
+inherit the limitations of fixed-window segmentation, causing the
+learned representations to depend on arbitrary temporal partitions
+rather than meaningful activity structures. Consequently, the potential
+of self-supervised learning has not yet been fully exploited for
+continuous human activity understanding.
+
+In parallel, transitional activities have received relatively limited
+attention despite their critical importance in healthcare applications.
+Movements such as sit-to-stand, stand-to-sit, turning, and gait
+transitions are essential indicators of mobility, physical
+rehabilitation progress, fall risk, and neurological disorders.
+Unfortunately, these activities remain among the most difficult to
+recognize because they are short in duration, highly variable among
+subjects, and frequently occur near activity boundaries where
+conventional segmentation strategies perform poorly.
+
+These observations reveal that the current research direction in HAR
+should move beyond merely improving classification accuracy. Instead,
+future intelligent HAR systems should be capable of understanding the
+semantic structure of continuous human behavior by automatically
+discovering activity boundaries, learning robust representations from
+largely unlabeled sensor streams, and recognizing transitional movements
+within a unified framework.
+
+Motivated by these challenges, this research proposes a Boundary-Aware
+Self-Supervised Human Activity Recognition (BASS-HAR) framework that
+integrates semantic boundary discovery, boundary-guided self-supervised
+representation learning, and context-aware temporal modeling into a
+unified end-to-end architecture. By jointly optimizing these components
+rather than treating them as independent stages, the proposed framework
+aims to improve recognition accuracy, reduce dependence on labeled data,
+and significantly enhance the detection of transitional activities in
+continuous wearable sensor streams.
+
+Ultimately, this research is motivated by the vision of developing
+next-generation HAR systems that not only recognize human activities but
+also understand the temporal semantics of continuous human behavior,
+enabling more reliable and intelligent wearable sensing applications for
+healthcare, rehabilitation, and smart environments.
+
+1.3 Problem Statement
+
+Human Activity Recognition (HAR) has achieved remarkable progress over
+the past decade due to advances in deep learning and wearable sensing
+technologies. Deep neural networks, particularly Convolutional Neural
+Networks (CNNs) and Transformer-based architectures, have significantly
+improved activity recognition accuracy on benchmark datasets. However,
+despite these advances, existing HAR systems remain largely dependent on
+traditional processing pipelines that limit their effectiveness in
+continuous real-world environments.
+
+The first major limitation lies in the use of fixed-size sliding window
+segmentation. Most existing HAR models divide continuous sensor streams
+into predefined temporal windows before feature extraction and
+classification. Although this strategy simplifies data processing, it
+assumes that human activities occur within fixed temporal intervals, an
+assumption that rarely holds in real-life scenarios. Human activities
+naturally vary in duration, and their transitions occur at irregular
+time points. Consequently, fixed-window segmentation often fragments a
+single activity into multiple segments or merges different activities
+into the same window, resulting in ambiguous feature representations and
+inaccurate recognition.
+
+The second limitation concerns the heavy dependence of current deep
+learning models on large-scale labeled datasets. State-of-the-art HAR
+systems generally require thousands of manually annotated sensor samples
+to achieve competitive performance. Producing such annotations is both
+labor-intensive and time-consuming, especially for continuous sensor
+streams where accurately identifying activity boundaries demands expert
+knowledge. Furthermore, manually labeling large-scale wearable sensor
+data is impractical for many real-world healthcare and smart living
+applications, significantly restricting the scalability and
+generalization of supervised HAR models.
+
+A further challenge arises from the recognition of transitional
+activities, such as sit-to-stand, stand-to-sit, turning, and gait
+transitions. These activities are typically short in duration, highly
+variable among individuals, and occur precisely at the boundaries
+between consecutive activities. Because conventional HAR systems are
+primarily optimized for recognizing steady-state activities,
+transitional movements are frequently misclassified or ignored. This
+limitation is particularly critical in healthcare, elderly monitoring,
+rehabilitation, and fall prevention applications, where accurate
+recognition of transitional movements is often more important than
+recognizing static activities themselves.
+
+Although recent studies have explored dynamic segmentation,
+self-supervised learning, and temporal modeling independently, these
+research directions remain largely disconnected. Existing dynamic
+segmentation approaches generally rely on handcrafted rules or
+additional supervision, while current self-supervised HAR models
+continue to depend on fixed-window segmentation that ignores semantic
+activity boundaries. Likewise, most transitional activity recognition
+methods are developed as standalone classification tasks without
+exploiting boundary information or learned temporal representations.
+Consequently, the relationships among semantic boundary discovery,
+representation learning, and transitional activity recognition remain
+insufficiently investigated.
+
+Therefore, a significant research gap exists in developing a unified
+Human Activity Recognition framework capable of simultaneously
+discovering semantic activity boundaries, learning robust activity
+representations from unlabeled wearable sensor streams, and accurately
+recognizing both steady and transitional activities within continuous
+sensor data. Addressing these challenges requires a new learning
+paradigm that integrates semantic boundary discovery, self-supervised
+representation learning, and context-aware temporal modeling into a
+single end-to-end framework rather than treating them as independent
+processing stages.
+
+To address this gap, this research proposes a Boundary-Aware
+Self-Supervised Human Activity Recognition (BASS-HAR) framework. The
+proposed framework aims to automatically identify semantic activity
+boundaries directly from continuous sensor streams, exploit
+boundary-guided self-supervised learning to reduce dependence on labeled
+data, and improve the recognition of transitional activities through
+context-aware temporal modeling. By jointly optimizing these components,
+the proposed framework seeks to overcome the major limitations of
+existing HAR systems and provide a more robust, scalable, and
+intelligent solution for continuous human activity understanding.
+
+1.4 Research Gap
+
+Despite the remarkable progress achieved in wearable sensor-based Human
+Activity Recognition (HAR), several fundamental research gaps remain
+unresolved. Existing studies have primarily focused on improving
+classification accuracy through more sophisticated deep learning
+architectures, such as Convolutional Neural Networks (CNNs), Recurrent
+Neural Networks (RNNs), Transformers, and hybrid CNN-Transformer models.
+Although these approaches have achieved high recognition performance on
+benchmark datasets, they continue to rely on conventional processing
+pipelines that restrict their applicability in real-world continuous
+activity recognition.
+
+The first research gap concerns activity segmentation. Most existing HAR
+systems still depend on fixed-size sliding windows to partition
+continuous sensor streams before feature extraction. This strategy
+assumes that all activities have similar temporal durations and ignores
+the semantic boundaries between consecutive activities. As a result,
+activity transitions are frequently divided across multiple windows or
+merged into neighboring activities, producing inconsistent feature
+representations and reducing recognition performance. Although several
+studies have investigated adaptive or dynamic segmentation techniques,
+these methods often require handcrafted rules, threshold-based
+algorithms, or additional supervision, limiting their scalability and
+robustness in real-world environments.
+
+The second research gap relates to representation learning from
+unlabeled sensor data. Recent advances in self-supervised learning have
+demonstrated promising results by enabling HAR models to learn
+discriminative feature representations without requiring extensive
+manual annotations. However, most existing self-supervised HAR
+approaches continue to generate training samples using conventional
+fixed-window segmentation. Consequently, the learned representations
+remain constrained by arbitrary temporal partitions rather than
+meaningful activity structures. Very limited research has explored how
+semantic activity boundaries can guide self-supervised representation
+learning to improve feature quality and reduce labeling requirements
+simultaneously.
+
+The third research gap concerns the recognition of transitional
+activities. Existing HAR research predominantly emphasizes the
+recognition of steady-state activities such as walking, sitting,
+standing, and running, while transitional movements receive relatively
+limited attention. Activities such as sit-to-stand, stand-to-sit,
+turning, and gait transitions are inherently short, irregular, and
+highly variable among individuals. Since these movements occur around
+activity boundaries, they are particularly sensitive to segmentation
+errors. Current approaches generally treat transitional activity
+recognition as an independent classification problem rather than
+integrating boundary information and temporal context into the learning
+process.
+
+Furthermore, although dynamic segmentation, self-supervised learning,
+and transitional activity recognition have each attracted increasing
+research interest, these three research directions have largely evolved
+independently. Existing studies typically address only one of these
+challenges while overlooking their strong interdependence. To the best
+of current knowledge, there remains a lack of a unified HAR framework
+that simultaneously performs semantic boundary discovery,
+boundary-guided self-supervised representation learning, and accurate
+recognition of transitional activities within a single end-to-end
+learning architecture.
+
+Therefore, the major research gap addressed in this study is the absence
+of an integrated framework capable of jointly learning where an activity
+begins and ends, how to learn meaningful activity representations from
+largely unlabeled sensor streams, and how to accurately recognize both
+steady and transitional activities using the learned semantic
+boundaries. Addressing this gap is expected to improve recognition
+robustness, reduce dependence on manual labeling, and significantly
+enhance the practical deployment of wearable HAR systems in healthcare,
+rehabilitation, and intelligent ambient environments.
+
+1.5 Research Questions
+
+Based on the identified research gaps, this study seeks to answer the
+following research questions:
+
+RQ1
+
+How can semantic activity boundaries be automatically identified from
+continuous wearable sensor streams without relying on fixed-size sliding
+window segmentation?
+
+Traditional HAR systems employ predefined sliding windows that fail to
+align with the natural temporal structure of human activities. This
+research investigates whether semantic boundary discovery can provide a
+more accurate representation of continuous activities.
+
+RQ2
+
+How can self-supervised learning be integrated with semantic boundary
+information to learn robust activity representations from unlabeled
+wearable sensor data while reducing dependence on manual annotations?
+
+Existing self-supervised HAR approaches generally learn from arbitrarily
+segmented data. This research explores whether boundary-aware
+self-supervised learning can improve representation quality and reduce
+labeling requirements.
+
+RQ3
+
+How can contextual temporal information and semantic boundary awareness
+improve the recognition of transitional human activities compared with
+conventional HAR approaches?
+
+Transitional activities remain one of the most challenging problems in
+HAR due to their short duration and high variability. This research
+investigates whether incorporating semantic boundaries and temporal
+context can significantly improve their recognition.
+
+RQ4
+
+Can a unified Boundary-Aware Self-Supervised Human Activity Recognition
+(BASS-HAR) framework simultaneously improve activity segmentation,
+representation learning, and transitional activity recognition while
+maintaining competitive overall recognition performance?
+
+This question evaluates the effectiveness of integrating semantic
+boundary discovery, self-supervised representation learning, and
+transitional activity recognition within a single end-to-end framework.
+
+1.6 Research Objectives
+
+General Objective
+
+The primary objective of this research is to develop a Boundary-Aware
+Self-Supervised Human Activity Recognition (BASS-HAR) framework that
+integrates semantic activity boundary detection, boundary-guided
+self-supervised representation learning, and context-aware transitional
+activity recognition to improve the robustness, scalability, and
+accuracy of continuous wearable sensor-based Human Activity Recognition.
+
+Specific Objectives
+
+Objective 1
+
+To develop a semantic activity boundary detection mechanism capable of
+automatically identifying meaningful activity transitions from
+continuous wearable sensor streams without relying on fixed-size sliding
+window segmentation.
+
+Expected Outcome:
+
+- Adaptive activity segmentation.
+
+- Accurate localization of activity boundaries.
+
+- Reduced segmentation errors.
+
+Objective 2
+
+To design a boundary-aware self-supervised learning framework that
+learns robust and discriminative activity representations from unlabeled
+wearable sensor data while significantly reducing dependence on manual
+annotations.
+
+Expected Outcome:
+
+- High-quality feature representations.
+
+- Reduced labeling cost.
+
+- Improved model generalization.
+
+Objective 3
+
+To develop a context-aware transitional activity recognition module that
+utilizes semantic boundary information and temporal dependencies to
+improve the recognition of short-duration transitional activities.
+
+Expected Outcome:
+
+- Improved recognition of sit-to-stand, stand-to-sit, turning, and
+  similar transitions.
+
+- Better temporal understanding.
+
+- Higher classification performance for challenging activities.
+
+Objective 4
+
+To integrate the proposed semantic boundary detection, boundary-aware
+self-supervised learning, and transitional activity recognition modules
+into a unified BASS-HAR framework, and comprehensively evaluate its
+performance against state-of-the-art Human Activity Recognition methods
+using publicly available benchmark datasets.
+
+Expected Outcome:
+
+- End-to-end HAR framework.
+
+- Improved overall recognition performance.
+
+- Demonstrated superiority over existing methods.
+
+1.7 Research Contributions
+
+This research is expected to make several significant scientific and
+practical contributions to the field of wearable sensor-based Human
+Activity Recognition (HAR). Unlike existing approaches that address
+activity segmentation, representation learning, and transitional
+activity recognition independently, the proposed research introduces a
+unified framework that jointly optimizes these tasks within a single
+end-to-end architecture.
+
+The expected research contributions are summarized as follows:
+
+Contribution 1: A Novel Semantic Boundary Detection Mechanism for
+Continuous HAR
+
+This research proposes a semantic boundary detection mechanism capable
+of automatically identifying meaningful activity transitions directly
+from continuous wearable sensor streams without relying on conventional
+fixed-size sliding window segmentation.
+
+Unlike traditional segmentation approaches that partition sensor data
+using predefined temporal windows, the proposed method aims to detect
+activity boundaries according to the intrinsic temporal characteristics
+of human movements. This enables more accurate segmentation of
+continuous activities and minimizes information loss caused by arbitrary
+window boundaries.
+
+Novelty
+
+- Eliminates dependence on fixed sliding windows.
+
+- Learns activity boundaries directly from sensor data.
+
+- Produces semantically meaningful activity segments.
+
+- Improves feature consistency before activity recognition.
+
+Contribution 2: Boundary-Aware Self-Supervised Representation Learning
+
+This research introduces a Boundary-Aware Self-Supervised Learning
+strategy that integrates semantic boundary information into the
+representation learning process.
+
+Unlike existing self-supervised HAR methods that generate training
+samples from fixed temporal windows, the proposed approach constructs
+positive and negative learning pairs based on semantic activity
+boundaries. By exploiting boundary-aware temporal relationships, the
+proposed framework is expected to learn more discriminative feature
+representations while significantly reducing dependence on manually
+labeled datasets.
+
+Novelty
+
+- First integration of semantic boundary discovery with self-supervised
+  HAR learning.
+
+- Learns representations from largely unlabeled sensor streams.
+
+- Reduces annotation cost.
+
+- Improves feature generalization across different users and activities.
+
+Contribution 3: Context-Aware Transitional Activity Recognition
+
+This research develops a dedicated Context-Aware Transitional Activity
+Recognition module that utilizes semantic boundary information together
+with long-range temporal dependencies to improve the recognition of
+short-duration transitional activities.
+
+Unlike existing HAR models that primarily focus on steady-state
+activities, the proposed module explicitly models transitional movements
+such as sit-to-stand, stand-to-sit, turning, and gait transitions. The
+proposed framework captures temporal context before and after activity
+transitions, leading to more reliable recognition of critical movement
+changes.
+
+Novelty
+
+- Dedicated recognition of transitional activities.
+
+- Uses semantic boundary information for transition localization.
+
+- Exploits temporal context through Transformer-based modeling.
+
+- Improves recognition of clinically important movements.
+
+Contribution 4: A Unified Boundary-Aware Self-Supervised HAR Framework
+(BASS-HAR)
+
+The final contribution of this research is the development of an
+integrated Boundary-Aware Self-Supervised Human Activity Recognition
+(BASS-HAR) framework that unifies semantic boundary detection,
+boundary-aware self-supervised representation learning, and
+context-aware transitional activity recognition within a single
+end-to-end architecture.
+
+Unlike existing HAR systems that optimize these components separately,
+the proposed framework jointly learns activity segmentation, feature
+representation, and activity classification. This unified design is
+expected to improve recognition robustness, reduce labeling
+requirements, and enhance the recognition of continuous human activities
+under real-world conditions.
+
+Novelty
+
+- First unified framework integrating the three research directions.
+
+- End-to-end optimization.
+
+- Improved robustness for continuous sensor streams.
+
+- Better scalability for real-world wearable applications.
+
+Expected Scientific Impact
+
+The proposed research is expected to advance the state-of-the-art in
+Human Activity Recognition by introducing a new learning paradigm that
+shifts HAR from conventional fixed-window classification toward semantic
+understanding of continuous human activities. The outcomes of this
+research are anticipated to contribute to intelligent healthcare,
+rehabilitation monitoring, elderly assistance, ambient assisted living,
+and future wearable sensing technologies.
+
+CHAPTER 3
+
+Proposed Methodology
+
+3.1 Research Methodology Overview
+
+This research proposes a novel Boundary-Aware Self-Supervised Human
+Activity Recognition (BASS-HAR) framework for continuous wearable
+sensor-based Human Activity Recognition. The proposed methodology
+integrates semantic boundary detection, self-supervised representation
+learning, and transitional activity recognition into a unified
+end-to-end architecture.
+
+Unlike conventional HAR systems that first divide sensor data into
+fixed-size sliding windows before classification, the proposed framework
+begins by automatically identifying semantic activity boundaries
+directly from continuous sensor streams. These detected boundaries are
+then used to generate adaptive activity segments that preserve the
+natural temporal structure of human movements.
+
+The segmented activities are subsequently processed using a hybrid
+CNN–Transformer architecture. CNN layers extract discriminative local
+spatial features from wearable sensor signals, while Transformer layers
+model long-range temporal dependencies across activity sequences.
+
+To reduce dependence on manually labeled datasets, a boundary-aware
+self-supervised learning strategy is incorporated into the framework.
+The proposed learning mechanism exploits semantic boundary information
+to construct meaningful positive and negative learning pairs, enabling
+robust feature learning from unlabeled sensor streams.
+
+Finally, a context-aware transitional activity recognition module
+utilizes temporal context before and after detected activity boundaries
+to accurately classify both steady-state and transitional activities.
+
+The overall methodology consists of six major stages, as illustrated in
+Figure X.X.
+
+Stage 1: Data Acquisition and Preprocessing
+
+Continuous sensor signals are collected from wearable inertial sensors,
+including tri-axial accelerometers and gyroscopes. Each sensor stream
+undergoes preprocessing to remove noise and normalize signal amplitudes.
+
+The preprocessing stage consists of:
+
+- Noise filtering
+
+- Missing value handling
+
+- Signal normalization
+
+- Timestamp synchronization
+
+- Continuous sensor stream construction
+
+The output of this stage is a continuous multivariate time-series
+suitable for semantic boundary analysis.
+
+Stage 2: Semantic Boundary Detection
+
+Instead of employing conventional fixed-size sliding windows, the
+proposed framework first identifies semantic boundaries that represent
+the natural transitions between consecutive activities.
+
+A lightweight Boundary Detection Network analyzes temporal changes
+within continuous sensor signals and estimates the probability of
+activity transitions at each time step.
+
+The detected boundaries divide the sensor stream into adaptive activity
+segments with variable lengths corresponding to actual human movements.
+
+Objective
+
+- Eliminate arbitrary segmentation.
+
+- Preserve activity continuity.
+
+- Improve transition localization.
+
+Stage 3: CNN-Based Local Feature Extraction
+
+Each adaptive activity segment is processed by a lightweight
+Convolutional Neural Network.
+
+The CNN extracts local motion patterns such as:
+
+- Body acceleration
+
+- Angular velocity
+
+- Motion frequency
+
+- Local temporal dynamics
+
+Depthwise Separable Convolution is adopted to reduce computational
+complexity while maintaining feature extraction capability.
+
+The output is a compact feature representation for each activity
+segment.
+
+Stage 4: Transformer-Based Temporal Modeling
+
+The extracted feature sequence is then passed to a Transformer encoder.
+
+The Transformer captures:
+
+- Long-range temporal dependencies
+
+- Contextual relationships
+
+- Sequential motion evolution
+
+- Activity continuity
+
+Unlike RNN-based approaches, the Transformer models the complete
+activity sequence simultaneously using self-attention mechanisms.
+
+The resulting temporal representations contain both local and global
+activity information.
+
+Stage 5: Boundary-Aware Self-Supervised Representation Learning
+
+This stage represents the primary novelty of the proposed research.
+
+Instead of learning representations from randomly segmented windows, the
+framework incorporates semantic boundary information into the
+self-supervised learning process.
+
+Three complementary pretext tasks are employed:
+
+5.1 Temporal Contrastive Learning
+
+Positive pairs are generated from neighboring segments belonging to the
+same semantic activity.
+
+Negative pairs are selected from different activities separated by
+detected boundaries.
+
+This encourages the model to maximize intra-activity similarity while
+increasing inter-activity discrimination.
+
+5.2 Continuity Prediction
+
+The model predicts whether two consecutive segments belong to:
+
+- the same activity
+
+- different activities
+
+This enables the encoder to learn transition-aware representations.
+
+5.3 Masked Temporal Modeling
+
+Random portions of the sensor sequence are masked.
+
+The network reconstructs the missing sensor values using surrounding
+temporal context.
+
+This task enables the model to understand temporal dynamics without
+requiring manual labels.
+
+Stage 6: Context-Aware Transitional Activity Recognition
+
+The learned representations are finally used to classify activities.
+
+Unlike conventional HAR systems, the proposed classifier explicitly
+models transitional activities.
+
+The classifier receives:
+
+- Semantic boundary information
+
+- CNN features
+
+- Transformer temporal embeddings
+
+- Self-supervised representations
+
+The final prediction includes both:
+
+- Steady-state activities
+
+- Transitional activities
+
+such as:
+
+- Sit-to-Stand
+
+- Stand-to-Sit
+
+- Walk-to-Run
+
+- Turning
+
+Performance Evaluation
+
+The proposed BASS-HAR framework will be evaluated using benchmark HAR
+datasets.
+
+Performance will be measured using:
+
+Classification metrics:
+
+- Accuracy
+
+- Precision
+
+- Recall
+
+- F1-score
+
+Boundary detection metrics:
+
+- Boundary Precision
+
+- Boundary Recall
+
+- Boundary F1-score
+
+Representation quality:
+
+- Linear Evaluation Accuracy
+
+- Few-shot Learning Performance
+
+Transition recognition:
+
+- Transition Accuracy
+
+- Transition F1-score
+
+Computational efficiency:
+
+- Number of Parameters
+
+- FLOPs
+
+- Memory Consumption
+
+- Inference Time
+
+The proposed framework will be compared against recent state-of-the-art
+HAR models, including CNN-based, Transformer-based, self-supervised, and
+hybrid architectures.
+
+3.X Experimental Design
+
+3.X.1 Experimental Objectives
+
+The experimental design aims to comprehensively evaluate the
+effectiveness of the proposed Boundary-Aware Self-Supervised Human
+Activity Recognition (BASS-HAR) framework. The experiments are designed
+to validate each proposed research contribution individually and assess
+the overall performance of the integrated framework.
+
+Specifically, the experiments are designed to answer the following
+research questions:
+
+- Can semantic boundary detection improve activity segmentation compared
+  to fixed sliding windows?
+
+- Can boundary-aware self-supervised learning reduce the dependence on
+  labeled data while maintaining high recognition performance?
+
+- Can context-aware temporal modeling improve the recognition of
+  transitional activities?
+
+- Does the proposed BASS-HAR framework outperform existing
+  state-of-the-art HAR methods?
+
+3.X.2 Experimental Workflow
+
+The experimental procedure consists of seven sequential phases.
+
+Dataset Collection
+
+│
+
+▼
+
+Data Preprocessing
+
+│
+
+▼
+
+Boundary Detection Training
+
+│
+
+▼
+
+Self-Supervised Pretraining
+
+│
+
+▼
+
+Fine-Tuning
+
+│
+
+▼
+
+Activity Recognition
+
+│
+
+▼
+
+Performance Evaluation
+
+3.X.3 Benchmark Datasets
+
+To ensure fair comparison with existing state-of-the-art methods,
+multiple publicly available HAR benchmark datasets will be employed.
+
+  ----------------------------------------------------------
+  Dataset       Activities   Sensors       Purpose
+  ------------- ------------ ------------- -----------------
+  UCI HAR       6            Smartphone    Baseline
+                             IMU           Evaluation
+
+  WISDM         18           Smartphone    Generalization
+
+  PAMAP2        18           IMU + Heart   Complex
+                             Rate          Activities
+
+  Opportunity   Daily        Multiple      Transition
+                Activities   Sensors       Detection
+
+  Real World    8            Multiple IMUs Real-world
+  HAR                                      Evaluation
+  ----------------------------------------------------------
+
+Using multiple datasets enables evaluation under different sensing
+conditions and activity complexities.
+
+3.X.4 Data Partition
+
+The datasets will be divided into:
+
+- Training Set (70%)
+
+- Validation Set (10%)
+
+- Testing Set (20%)
+
+Additionally,
+
+Leave-One-Subject-Out (LOSO) Cross Validation will be performed to
+evaluate the generalization capability across unseen users.
+
+This evaluation protocol ensures that the proposed framework does not
+overfit specific participants.
+
+3.X.5 Baseline Models
+
+The proposed BASS-HAR framework will be compared against representative
+state-of-the-art HAR approaches.
+
+Conventional Deep Learning
+
+- DeepConvLSTM
+
+- CNN
+
+- Bi-LSTM
+
+- CNN-LSTM
+
+Transformer-Based Models
+
+- Transformer
+
+- ViT-HAR
+
+- TinyHAR
+
+- CrossFormer
+
+Self-Supervised Models
+
+- SimCLR-HAR
+
+- TS-TCC
+
+- CLOCS
+
+- TST
+
+Boundary Detection Models
+
+Recent segmentation-based HAR approaches will also be included whenever
+available.
+
+3.X.6 Ablation Study
+
+To validate the contribution of each proposed module, an ablation study
+will be conducted.
+
+  -------------------------------------------------------
+  Model            Boundary         SSL   Transition
+                   Detection              Module
+  ---------------- ---------------- ----- ---------------
+  CNN +            ❌               ❌    ❌
+  Transformer                             
+
+  + Boundary       ✅               ❌    ❌
+  Detection                               
+
+  + Boundary + SSL ✅               ✅    ❌
+
+  Proposed         ✅               ✅    ✅
+  BASS-HAR                                
+  -------------------------------------------------------
+
+This experiment demonstrates the contribution of each module
+independently.
+
+3.X.7 Label Efficiency Experiment
+
+One of the major objectives is reducing annotation requirements.
+
+The model will be trained using different percentages of labeled data.
+
+- 100%
+
+- 50%
+
+- 20%
+
+- 10%
+
+- 5%
+
+The proposed framework is expected to maintain competitive performance
+under low-label scenarios.
+
+3.X.8 Boundary Detection Evaluation
+
+The effectiveness of semantic boundary detection will be evaluated
+using:
+
+- Boundary Precision
+
+- Boundary Recall
+
+- Boundary F1-score
+
+- Mean Boundary Localization Error
+
+The proposed approach will be compared against conventional
+sliding-window segmentation.
+
+3.X.9 Transitional Activity Evaluation
+
+Special experiments will focus on transitional activities.
+
+Example transitions include:
+
+- Sit → Stand
+
+- Stand → Sit
+
+- Walk → Run
+
+- Walk → Turn
+
+- Stair Up → Walking
+
+Performance will be evaluated separately from steady-state activities.
+
+Metrics include:
+
+- Transition Accuracy
+
+- Transition Precision
+
+- Transition Recall
+
+- Transition F1-score
+
+3.X.10 Computational Efficiency
+
+Although edge deployment is no longer the primary contribution,
+computational efficiency will still be evaluated.
+
+Metrics include:
+
+- Number of Parameters
+
+- FLOPs
+
+- GPU Memory Usage
+
+- CPU Inference Time
+
+- Model Size (MB)
+
+3.X.11 Evaluation Metrics
+
+The following performance metrics will be adopted.
+
+Classification Metrics
+
+- Accuracy
+
+- Precision
+
+- Recall
+
+- F1-score
+
+- Macro F1-score
+
+- Confusion Matrix
+
+Segmentation Metrics
+
+- Boundary Precision
+
+- Boundary Recall
+
+- Boundary F1-score
+
+- Mean Localization Error
+
+Self-Supervised Learning Metrics
+
+- Linear Evaluation Accuracy
+
+- Few-Shot Accuracy
+
+- Representation Quality
+
+Transition Recognition Metrics
+
+- Transition Accuracy
+
+- Transition F1-score
+
+- Temporal Detection Delay
+
+Computational Metrics
+
+- Parameters
+
+- FLOPs
+
+- Memory Consumption
+
+- Inference Time
+
+3.X.12 Statistical Analysis
+
+To verify the statistical significance of the proposed improvements,
+statistical hypothesis testing will be conducted.
+
+The following tests will be applied:
+
+- Paired t-test
+
+- Wilcoxon Signed-Rank Test (if normality assumptions are violated)
+
+- Confidence Interval (95%)
+
+A significance level of p < 0.05 will be considered statistically
+significant.
+
+3.X.13 Expected Experimental Outcomes
+
+The proposed experiments are expected to demonstrate that:
+
+1.  Semantic boundary detection produces more meaningful activity
+    segments than fixed sliding windows.
+
+2.  Boundary-aware self-supervised learning substantially reduces the
+    need for labeled training data.
+
+3.  Context-aware temporal modeling significantly improves transitional
+    activity recognition.
+
+4.  The integrated BASS-HAR framework consistently outperforms existing
+    HAR approaches across multiple benchmark datasets while maintaining
+    strong generalization performance.
+
+8. Expected Outcomes
+
+The proposed Boundary-Aware Self-Supervised Human Activity Recognition
+(BASS-HAR) framework is expected to advance the state-of-the-art in
+wearable sensor-based Human Activity Recognition by addressing three
+fundamental challenges: semantic activity segmentation, label-efficient
+learning, and transitional activity recognition.
+
+The expected outcomes of this research are summarized as follows:
+
+1. Improved Activity Segmentation
+
+The proposed semantic boundary detection module is expected to
+automatically identify natural activity transitions, eliminating the
+limitations of fixed-size sliding windows. This is anticipated to
+produce more meaningful activity segments and improve the temporal
+consistency of activity recognition.
+
+2. Reduced Dependence on Labeled Data
+
+The boundary-aware self-supervised learning strategy is expected to
+learn robust activity representations from unlabeled sensor streams,
+significantly reducing the need for expensive manual annotations while
+maintaining competitive recognition performance.
+
+3. Enhanced Transitional Activity Recognition
+
+By explicitly modeling activity boundaries and temporal context, the
+proposed framework is expected to substantially improve the recognition
+of short-duration transitional activities, such as sit-to-stand and
+stand-to-sit, which remain challenging for existing HAR systems.
+
+4. Improved Generalization
+
+The combination of semantic segmentation and self-supervised
+representation learning is expected to improve the model's robustness
+across different users, sensor placements, and benchmark datasets.
+
+5. State-of-the-Art Performance
+
+The proposed framework is expected to outperform existing CNN-based,
+Transformer-based, and self-supervised HAR models across multiple public
+benchmark datasets using standard evaluation metrics.
+
+6. Practical Research Framework
+
+The proposed BASS-HAR architecture is expected to provide a flexible and
+extensible framework that can be adapted for healthcare monitoring,
+elderly assistance, smart homes, rehabilitation, and other wearable
+computing applications.
+
+9. Novelty of the Proposed Research
+
+The originality of this research lies in the integration of three
+complementary research directions into a unified Human Activity
+Recognition framework. While each individual component has been
+investigated separately in previous studies, their combined integration
+remains largely unexplored.
+
+The proposed research introduces the following novel contributions:
+
+Novelty 1: Semantic Boundary-Aware Activity Segmentation
+
+Unlike traditional HAR systems that rely on fixed-size sliding windows,
+the proposed framework automatically detects semantic activity
+boundaries and generates adaptive activity segments that better
+represent natural human movements.
+
+Novelty 2: Boundary-Aware Self-Supervised Learning
+
+This research proposes a novel self-supervised learning strategy that
+incorporates semantic boundary information into the representation
+learning process. Instead of generating training pairs randomly,
+positive and negative pairs are constructed based on detected activity
+boundaries, enabling the model to learn more discriminative temporal
+representations from unlabeled sensor data.
+
+Novelty 3: Context-Aware Transitional Activity Recognition
+
+The proposed framework explicitly models transitional activities by
+utilizing temporal information before and after detected activity
+boundaries. This approach enables more accurate recognition of brief and
+highly variable transition movements that are often overlooked by
+existing HAR systems.
+
+Novelty 4: Unified End-to-End Framework
+
+Rather than addressing segmentation, representation learning, and
+activity recognition as separate problems, this research integrates all
+components into a unified end-to-end architecture that jointly optimizes
+activity segmentation, feature learning, and classification.
+
+Novelty 5: Comprehensive Experimental Validation
+
+The proposed framework will be extensively evaluated through
+cross-dataset experiments, low-label learning scenarios,
+transition-specific evaluations, and ablation studies to demonstrate the
+effectiveness of each proposed contribution.
+
+10. Publications Plan (Q1/Q2 Journals)
+
+To maximize the scientific impact of the proposed research, the PhD
+study is planned to produce multiple high-quality journal publications.
+Each publication will focus on one major contribution of the proposed
+framework.
+
+  -------------------------------------------------------------------------
+  Year    Planned Publication                                Target Journal
+                                                             Quartile
+  ------- -------------------------------------------------- --------------
+  Year 1  Literature Review on Boundary-Aware Human Activity Q2
+          Recognition and Self-Supervised Learning           
+
+  Year 2  Semantic Boundary Detection for Adaptive Human     Q1
+          Activity Segmentation Using Wearable Sensors       
+
+  Year 2  Boundary-Aware Self-Supervised Representation      Q1
+          Learning for Label-Efficient Human Activity        
+          Recognition                                        
+
+  Year 3  Context-Aware Recognition of Transitional Human    Q1
+          Activities Using Hybrid CNN–Transformer Networks   
+
+  Year 3  BASS-HAR: A Unified Boundary-Aware Self-Supervised Q1
+          Framework for Human Activity Recognition           
+
+  Final   Comprehensive Comparative Study and Extended       Q1/Q2
+  Year    Framework Evaluation                               
+  -------------------------------------------------------------------------
+
+Potential Target Journals
+
+Q1 Journals
+
+- IEEE Internet of Things Journal
+
+- IEEE Transactions on Mobile Computing
+
+- IEEE Transactions on Instrumentation and Measurement
+
+- Pattern Recognition
+
+- Information Fusion
+
+- Expert Systems with Applications
+
+- Knowledge-Based Systems
+
+- Engineering Applications of Artificial Intelligence
+
+Q2 Journals
+
+- Sensors (MDPI)
+
+- Applied Sciences
+
+- Multimedia Tools and Applications
+
+- Journal of Ambient Intelligence and Humanized Computing
+
+- Biomedical Signal Processing and Control
+
+This publication strategy ensures that each research contribution is
+independently validated while collectively supporting the final doctoral
+thesis.
+
+11. Research Timeline
+
+The proposed research is planned to be completed over three years,
+consisting of six sequential phases.
+
+  --------------------------------------------------------------------------
+  Phase       Activities                                          Duration
+  ----------- --------------------------------------------------- ----------
+  Year 1      Comprehensive literature review, identification of  6 months
+  (Semester   research gaps, proposal development, and            
+  1)          confirmation of research objectives                 
+
+  Year 1      Dataset collection, preprocessing, implementation   6 months
+  (Semester   of semantic boundary detection module               
+  2)                                                              
+
+  Year 2      Development of boundary-aware self-supervised       6 months
+  (Semester   learning framework and feature representation       
+  1)          learning                                            
+
+  Year 2      Development of context-aware transitional activity  6 months
+  (Semester   recognition module and integration with the         
+  2)          complete framework                                  
+
+  Year 3      Experimental evaluation, comparative analysis,      6 months
+  (Semester   ablation studies, statistical validation, and       
+  1)          preparation of journal publications                 
+
+  Year 3      Thesis writing, revision, journal submissions,      6 months
+  (Semester   final corrections, and PhD defense preparation      
+  2)                                                              
+  --------------------------------------------------------------------------
+
+Expected Research Milestones
+
+  ----------------------------------------------
+  Milestone                    Expected
+                               Completion
+  ---------------------------- -----------------
+  Proposal Defense             End of Year 1
+
+  Semantic Boundary Detection  Year 1
+  Module                       
+
+  Self-Supervised Learning     Mid-Year 2
+  Module                       
+
+  Complete BASS-HAR Framework  End of Year 2
+
+  Journal Publications (Q1/Q2) Throughout Years
+                               2–3
+
+  Experimental Validation      Beginning of Year
+                               3
+
+  Thesis Submission            End of Year 3
+
+  Final Viva Voce Examination  End of Year 3
+  ----------------------------------------------

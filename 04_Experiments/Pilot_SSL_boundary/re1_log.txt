@@ -1,0 +1,9 @@
+seed 42, val loss 0.0729
+val concat: 134 GT, thr=2.65z, val F1=0.443
+
+--- S7: 2230s stream, 137 boundaries ---
+CP         r=+0.127 AUPRC=0.112 (chance=0.062) | thr-F1=0.337 P=0.27 R=0.46 MAE=0.22s
+MTM        r=+0.003 AUPRC=0.064 (chance=0.062) | thr-F1=0.124 P=0.07 R=0.61 MAE=0.19s
+CP+MTM     r=+0.003 AUPRC=0.064 (chance=0.062) | thr-F1=0.124 P=0.07 R=0.61 MAE=0.19s
+B0 deriv   r=-0.022 AUPRC=0.059 (chance=0.062) | thr-F1=0.088 P=0.05 R=0.29 MAE=0.26s
+S9: no usable GT

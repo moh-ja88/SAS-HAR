@@ -1,0 +1,5 @@
+head train set: 45594 samples, 33.3% positive
+val: 141 GT, thr=1.65z, val F1=0.390
+
+--- S7: 2233s, 132 GT ---
+  trained-head r=+0.370 AUPRC=0.499 (chance 0.060) | F1=0.443 P=0.48 R=0.41 MAE=0.24s

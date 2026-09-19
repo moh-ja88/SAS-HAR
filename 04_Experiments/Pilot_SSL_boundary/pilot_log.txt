@@ -1,0 +1,38 @@
+device=cuda  data=C:\Work\OpenCode\PhDYasmeen\05_Code\PhD-HAR-Segmentation\data\pamap2\PAMAP2_Dataset\Protocol
+subject 1: 1 chunks, 62 min, 13 transitions
+subject 2: 1 chunks, 74 min, 13 transitions
+subject 3: 1 chunks, 42 min, 10 transitions
+subject 5: 1 chunks, 62 min, 13 transitions
+subject 6: 1 chunks, 60 min, 13 transitions
+subject 8: 1 chunks, 67 min, 13 transitions
+subject 4: 1 chunks, 54 min, 11 transitions
+subject 7: 1 chunks, 52 min, 12 transitions
+subject 9: 1 chunks, 1 min, 0 transitions
+
+=== seed 42 ===
+windows: train=14277 val=2242
+trained in 58s, best val loss 0.0729
+val F1[cp] ~ 0.000, thr=0.0816
+val F1[mtm] ~ 0.003, thr=0.008798
+S7 CP : F1=0.002 (B0=0.001, chance=0.006) r=-0.02 MAE=0.26s
+S7 MTM: F1=0.003 (B0=0.001, chance=0.006) r=-0.01 MAE=0.29s
+S9 CP : F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+S9 MTM: F1=nan (B0=nan, chance=nan) r=nan MAE=nans
+Traceback (most recent call last):
+  File "C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\run_pilot.py", line 171, in <module>
+    main()
+    ~~~~^^
+  File "C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\run_pilot.py", line 147, in main
+    json.dumps(all_results[-1], indent=1))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hossa\AppData\Local\Programs\Python\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\hossa\AppData\Local\Programs\Python\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\hossa\AppData\Local\Programs\Python\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\hossa\AppData\Local\Programs\Python\Python313\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type float32 is not JSON serializable
