@@ -129,7 +129,10 @@ checkpoints/
 logs/
 runs/
 outputs/
-data/
+/data/*
+!/data/DATA_MANIFEST.md
+Signals/
+Dataset/
 *.pt
 *.pth
 *.ckpt

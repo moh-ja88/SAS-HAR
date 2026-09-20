@@ -44,10 +44,8 @@ docs/
 │   ├── evaluation_metrics.md
 │   └── experiment_plan.md
 │
-├── results/           # Results Templates
-│   ├── baseline_results.md
-│   ├── segmentation_results.md
-│   └── ablation_studies.md
+├── results/           # (synthetic templates removed 2026-09-19 — see results/README.md)
+│   └── README.md
 │
 └── paper_outlines.md  # Publication Plans
 ```
