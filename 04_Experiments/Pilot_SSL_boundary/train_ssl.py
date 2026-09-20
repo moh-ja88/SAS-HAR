@@ -8,13 +8,13 @@ from ssl_model import SSLModel
 
 
 def train_ssl(train_x, val_x, epochs=30, batch=64, lr=3e-4, wd=1e-4,
-              patience=5, seed=42, device=None):
+              patience=5, seed=42, device=None, n_ch=18, win=200):
     if device is None:
         device = "cuda" if torch.cuda.is_available() else "cpu"
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    model = SSLModel().to(device)
+    model = SSLModel(n_ch=n_ch, win=win).to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs)
     tr = torch.as_tensor(train_x, dtype=torch.float32, device=device)

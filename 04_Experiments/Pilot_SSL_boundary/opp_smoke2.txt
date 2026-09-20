@@ -1,0 +1,20 @@
+S1: 5 chunks, 99 min, 269 edges
+S2: 5 chunks, 91 min, 445 edges
+S3: 5 chunks, 80 min, 461 edges
+S4: 5 chunks, 80 min, 494 edges
+  S1 run0: 44 GT | B0=0.288 CP=0.165 MTM=0.231 MMD2s=0.169 | probe_k3=0.265
+  S1 run1: 50 GT | B0=0.259 CP=0.215 MTM=0.228 MMD2s=0.260 | probe_k3=0.377
+  S1 run2: 44 GT | B0=0.297 CP=0.225 MTM=0.256 MMD2s=0.192 | probe_k3=0.396
+  S1 run3: 74 GT | B0=0.429 CP=0.336 MTM=0.378 MMD2s=0.296 | probe_k3=0.477
+  S1 run4: 57 GT | B0=0.414 CP=0.331 MTM=0.379 MMD2s=0.277 | probe_k3=0.485
+fold 0 S1: B0=0.337 CP=0.254 MTM=0.294 MMD2s=0.239 | k1=0.369 k2=0.382 k3=0.400 (chance 0.221)
+
+=== aggregate (2s tolerance, mean of per-subject means) ===
+B0     AUPRC 0.337±0.000
+CP     AUPRC 0.254±0.000
+MTM    AUPRC 0.294±0.000
+MMD2s  AUPRC 0.239±0.000
+probe k=1: AUPRC 0.369±0.000
+probe k=2: AUPRC 0.382±0.000
+probe k=3: AUPRC 0.400±0.000
+chance 0.221

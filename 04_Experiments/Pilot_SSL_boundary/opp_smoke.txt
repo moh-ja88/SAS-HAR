@@ -1,0 +1,17 @@
+S1: 153 chunks, 39 min, 0 edges
+S2: 112 chunks, 39 min, 30 edges
+S3: 148 chunks, 31 min, 28 edges
+S4: 143 chunks, 34 min, 85 edges
+Traceback (most recent call last):
+  File "C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\opportunity_experiment.py", line 309, in <module>
+    main()
+    ~~~~^^
+  File "C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\opportunity_experiment.py", line 293, in main
+    results.append(run_fold(fold, sid, data))
+                   ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\opportunity_experiment.py", line 277, in run_fold
+    lk = " ".join(f"k{k}={res[f'probe_k{k}_auprc_mean']:.3f}" for k in (1, 2, 3))
+  File "C:\Work\OpenCode\PhDYasmeen\04_Experiments\Pilot_SSL_boundary\opportunity_experiment.py", line 277, in <genexpr>
+    lk = " ".join(f"k{k}={res[f'probe_k{k}_auprc_mean']:.3f}" for k in (1, 2, 3))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__

@@ -1,0 +1,38 @@
+S1: 5 chunks, 99 min, 269 edges
+S2: 5 chunks, 91 min, 445 edges
+S3: 5 chunks, 80 min, 461 edges
+S4: 5 chunks, 80 min, 494 edges
+  S1 run0: 44 GT | B0=0.288 CP=0.165 MTM=0.231 MMD2s=0.169 | probe_k3=0.265
+  S1 run1: 50 GT | B0=0.259 CP=0.215 MTM=0.228 MMD2s=0.261 | probe_k3=0.377
+  S1 run2: 44 GT | B0=0.297 CP=0.225 MTM=0.256 MMD2s=0.193 | probe_k3=0.395
+  S1 run3: 74 GT | B0=0.429 CP=0.336 MTM=0.378 MMD2s=0.296 | probe_k3=0.477
+  S1 run4: 57 GT | B0=0.414 CP=0.331 MTM=0.380 MMD2s=0.277 | probe_k3=0.484
+fold 0 S1: B0=0.337 CP=0.254 MTM=0.294 MMD2s=0.239 | k1=0.370 k2=0.381 k3=0.400 (chance 0.221)
+  S2 run0: 100 GT | B0=0.381 CP=0.343 MTM=0.388 MMD2s=0.525 | probe_k3=0.623
+  S2 run1: 100 GT | B0=0.487 CP=0.417 MTM=0.535 MMD2s=0.568 | probe_k3=0.717
+  S2 run2: 66 GT | B0=0.338 CP=0.246 MTM=0.336 MMD2s=0.402 | probe_k3=0.478
+  S2 run3: 80 GT | B0=0.378 CP=0.320 MTM=0.403 MMD2s=0.514 | probe_k3=0.517
+  S2 run4: 99 GT | B0=0.497 CP=0.374 MTM=0.504 MMD2s=0.518 | probe_k3=0.627
+fold 1 S2: B0=0.416 CP=0.340 MTM=0.433 MMD2s=0.506 | k1=0.532 k2=0.561 k3=0.592 (chance 0.337)
+  S3 run0: 107 GT | B0=0.394 CP=0.329 MTM=0.297 MMD2s=0.442 | probe_k3=0.486
+  S3 run1: 93 GT | B0=0.351 CP=0.360 MTM=0.328 MMD2s=0.571 | probe_k3=0.494
+  S3 run2: 100 GT | B0=0.571 CP=0.538 MTM=0.423 MMD2s=0.559 | probe_k3=0.706
+  S3 run3: 64 GT | B0=0.315 CP=0.342 MTM=0.255 MMD2s=0.371 | probe_k3=0.373
+  S3 run4: 97 GT | B0=0.570 CP=0.471 MTM=0.436 MMD2s=0.546 | probe_k3=0.732
+fold 2 S3: B0=0.440 CP=0.408 MTM=0.348 MMD2s=0.498 | k1=0.577 k2=0.556 k3=0.558 (chance 0.365)
+  S4 run0: 134 GT | B0=0.445 CP=0.420 MTM=0.404 MMD2s=0.466 | probe_k3=0.649
+  S4 run1: 84 GT | B0=0.425 CP=0.384 MTM=0.426 MMD2s=0.413 | probe_k3=0.561
+  S4 run2: 96 GT | B0=0.545 CP=0.471 MTM=0.486 MMD2s=0.515 | probe_k3=0.714
+  S4 run3: 60 GT | B0=0.443 CP=0.393 MTM=0.437 MMD2s=0.424 | probe_k3=0.665
+  S4 run4: 120 GT | B0=0.538 CP=0.458 MTM=0.518 MMD2s=0.468 | probe_k3=0.631
+fold 3 S4: B0=0.479 CP=0.425 MTM=0.454 MMD2s=0.457 | k1=0.620 k2=0.639 k3=0.644 (chance 0.420)
+
+=== aggregate (2s tolerance, mean of per-subject means) ===
+B0     AUPRC 0.418±0.052
+CP     AUPRC 0.357±0.067
+MTM    AUPRC 0.382±0.065
+MMD2s  AUPRC 0.425±0.109
+probe k=1: AUPRC 0.525±0.095
+probe k=2: AUPRC 0.534±0.094
+probe k=3: AUPRC 0.549±0.091
+chance 0.336

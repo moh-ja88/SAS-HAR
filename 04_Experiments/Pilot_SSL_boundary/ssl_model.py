@@ -30,12 +30,12 @@ class DSConvBlock(nn.Module):
 
 
 class Encoder(nn.Module):
-    """[B,18,200] -> [B,128,50] (total stride 4)."""
+    """[B,n_ch,win] -> [B,128,win/4] (total stride 4)."""
 
-    def __init__(self):
+    def __init__(self, c_in=N_CH):
         super().__init__()
         self.blocks = nn.Sequential(
-            DSConvBlock(N_CH, 32, 2),
+            DSConvBlock(c_in, 32, 2),
             DSConvBlock(32, 64, 2),
             DSConvBlock(64, D_MODEL, 1),
             DSConvBlock(D_MODEL, D_MODEL, 1),
@@ -63,9 +63,9 @@ class CPHead(nn.Module):
 
 
 class MTMHead(nn.Module):
-    """Decoder mirror -> reconstruction [B,18,200]; loss on masked positions only."""
+    """Decoder mirror -> reconstruction [B,n_ch,win]; loss on masked positions only."""
 
-    def __init__(self):
+    def __init__(self, win=WIN, n_ch=N_CH):
         super().__init__()
         def up(c_in, c_out, stride):
             k = 4 if stride > 1 else 3
@@ -73,10 +73,10 @@ class MTMHead(nn.Module):
                                  nn.BatchNorm1d(c_out), nn.GELU())
         self.dec = nn.Sequential(
             up(D_MODEL, D_MODEL, 1), up(D_MODEL, 64, 2),
-            up(64, 32, 2), nn.Conv1d(32, N_CH, 3, padding=1))
-        mask = torch.zeros(WIN, dtype=torch.bool)
+            up(64, 32, 2), nn.Conv1d(32, n_ch, 3, padding=1))
+        mask = torch.zeros(win, dtype=torch.bool)
         for a, b in MASK_SPANS:
-            mask[a:b] = True
+            mask[a * win // WIN: b * win // WIN] = True
         self.register_buffer("mask", mask)
 
     def forward(self, z, x, shift=0):
@@ -93,11 +93,11 @@ class MTMHead(nn.Module):
 
 
 class SSLModel(nn.Module):
-    def __init__(self):
+    def __init__(self, n_ch=N_CH, win=WIN):
         super().__init__()
-        self.encoder = Encoder()
+        self.encoder = Encoder(n_ch)
         self.cp = CPHead()
-        self.mtm = MTMHead()
+        self.mtm = MTMHead(win=win, n_ch=n_ch)
 
     def forward(self, x):
         z = self.encoder(x)
