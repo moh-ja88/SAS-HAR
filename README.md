@@ -14,14 +14,25 @@
 
 ## Project Summary
 
-BASS-HAR is a framework that uses **Self-Supervised Learning (SSL) on continuous IMU streams** to discover activity boundaries without supervised labels or handcrafted heuristics. SSL prediction errors spike at activity transitions; a Boundary Refinement Module (BRM) denoises these signals into sharp boundaries, which feed back to improve SSL training.
+BASS-HAR is a framework that uses **Self-Supervised Learning (SSL) on continuous IMU streams** to discover activity boundaries without supervised labels or handcrafted heuristics. SSL representations separate activities sharply (pilot: 94% linear-probe accuracy, cross-subject); boundary evidence is extracted by **distributional contrast across time** on these representations (two-sided window comparison, trained heads, or light supervision), then refined into sharp boundaries that feed back to improve SSL training.
 
-**Research Gap:** No prior work uses SSL prediction errors to discover activity boundaries in wearable sensor data. OTAS demonstrated this in video only; TS-CP² used contrastive separation for generic time series.
+> **Pilot verdict (Sep 19, 2026):** hypothesis confirmed in refined form — see
+> `04_Experiments/Pilot_SSL_boundary/RESULTS.md`. Naive pointwise prediction/reconstruction
+> errors carry no boundary signal; contrast mechanisms on the same frozen encoder reach
+> F1 0.72–0.77 (light supervision) and 4.5× chance AUPRC (unsupervised MMD). The
+> 0.28→0.74 supervision gap defines the Phase B design space (naive self-training fails —
+> see RESULTS.md §Phase B v0).
+
+**Research Gap:** No prior work uses SSL — of any paradigm — to detect activity boundaries in continuous wearable IMU streams (nearest: CLaP on generic time series, SCOTT's supervised-contrastive CPD on HAR sensors, OTAS in video). Gap analysis: `02_Literature_Review/` (33+46 papers, critical addendum).
 
 **3 Objectives:**
-1. **Boundary Detection** — discover transitions using SSL prediction errors
+1. **Boundary Detection** — discover transitions via contrast evidence on SSL representations
 2. **Label-Efficient Representation Learning** — SSL on unlabeled continuous data
 3. **Comprehensive Evaluation** — multi-dataset, LOSO, comparisons with baselines
+
+**Current status:** Phase A pilot complete (Sep 2026); framework revision pending
+supervisor meeting. Workspace version-controlled (private); pilot code also in the
+public SAS-HAR repo (`phd-workspace` branch).
 
 ---
 

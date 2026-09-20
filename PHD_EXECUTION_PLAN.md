@@ -6,6 +6,18 @@
 **Created:** Sep 17, 2026
 **Status:** Draft for review
 
+> **STATUS UPDATE (Sep 20, 2026) — Phase 1 COMPLETE, ahead of schedule and with a
+> different verdict than this plan anticipated.** The pilot (2 days instead of
+> 3–4 weeks) is in `04_Experiments/Pilot_SSL_boundary/` (+ repo `phd-workspace`
+> branch). Key deviations from the Phase-1 design below: (a) naive "errors spike
+> at transitions" is FALSIFIED for reconstruction (MTM = chance) — the signal
+> lives in *distributional contrast on SSL embeddings* (probe-contrast F1 0.72–0.77;
+> unsupervised MMD 4.5× chance); (b) PAMAP2 label edges are NOT valid boundary GT
+> (NULL-pause structure) — a concat benchmark with exact GT was built instead;
+> (c) naive Phase-B self-training fails (v0), making the Phase-2 loop design the
+> central open question. Sections below retain their original (pre-pilot) text
+> for the record; re-basing Phases 2–5 on pilot evidence is queued post-meeting.
+
 ---
 
 ## Overview

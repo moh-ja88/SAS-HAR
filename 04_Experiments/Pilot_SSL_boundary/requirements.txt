@@ -1,0 +1,15 @@
+# Pilot environment pinning (SSL boundary pilot, 2026-09)
+
+Python 3.13 (system, Windows) · CUDA 12.4 (RTX-class GPU)
+Verified working 2026-09-19 for all runners in this folder.
+
+torch==2.6.0+cu124
+torchvision  # not used by pilot; installed with torch bundle
+scikit-learn==1.8.0
+scipy==1.17.0
+numpy==2.2.6
+pandas==2.3.3
+matplotlib==3.10.8
+
+# Install note: torch wheel with CUDA 12.4:
+#   pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124

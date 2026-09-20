@@ -121,3 +121,61 @@ decision) · ✅ proposal PDF regenerated via pandoc/xelatex.
 **Meeting decisions:** #1 substantive proposal revisions, #5 Phase B v1 vs
 semi-supervised pivot, Opportunity-primary dataset switch (§4.2).
 **Post-meeting:** #4 P1 ladder execution (weeks 1–4), concurrent P1 draft.
+
+---
+
+# Round 2 Findings (2026-09-20) — deeper audit after Round-1 mechanical fixes
+
+## A. Stale-document cascade — four documents still assert the pre-pilot world
+
+All four predate the pilot and none reference its findings. A reader (or the
+supervisor) entering from any of them gets the *falsified* naive mechanism:
+
+| Document | Problem | Status |
+|---|---|---|
+| `README.md` (workspace root) | Summary + objectives + gap all state "SSL prediction errors spike at transitions" — the naive form the pilot falsified (MTM=chance); no mention of pilot/refined mechanism | ✅ updated 2026-09-20 (see below) |
+| `PHD_EXECUTION_PLAN.md` (Sep 17) | Phase 1 (pilot, 3–4 wks) is **already done — in 2 days — with a different verdict than planned**; phases 2–5 assume error-byproduct mechanism; "prerequisite: WISDM notebook on Colab" obsolete | ✅ status block added; full rebasing deferred to post-meeting (framing depends on Phase B decision) |
+| `02_Literature_Review/bass_har_research_ideas.md` | 5 research areas with pre-pilot potential ratings; Area 1 (boundary detection) now has empirical evidence and a partially negative sub-result (self-training) — unrated/unranked | ⬜ addendum recommended post-meeting |
+| `05_Code/.../docs/paper_outlines.md` (legacy repo) | Three paper outlines for the ABANDONED SAS-HAR/TCBL/NanoHAR line, tied to the removed synthetic-results era | ⬜ mark as legacy/superseded; BASS-HAR P1 outline to be created post-meeting |
+
+## B. Missing highest-value artifact: the Paper-1 skeleton
+
+No BASS-HAR paper outline exists anywhere. The pilot already contains a
+publication-shaped result (evidence-mechanism ladder + supervision-gap figure +
+two benchmark/methodology contributions). A P1 skeleton (title options, venue
+shortlist, section stubs, results table from RESULTS.md, the label-fraction
+curve as headline figure) is the top post-meeting artifact — **after** the
+Phase B v1 vs semi-supervised framing decision, which determines the paper's
+central claim.
+
+## C. Reproducibility package gaps (pilot folder)
+
+- No `requirements.txt` / environment pinning → ✅ added 2026-09-20
+  (torch 2.6.0+cu124, scikit-learn 1.8.0, scipy 1.17.0, numpy 2.2.6,
+  pandas 2.3.3, matplotlib 3.10.8, Python 3.13, CUDA 12.4)
+- Constants hardcoded across runners (scales, thresholds, seeds) → config
+  consolidation queued for P1 cycle
+- No per-run artifact manifest (which log = which config) → P1 cycle
+
+## D. Data lineage undocumented
+
+Datasets on disk have no provenance record (source URL, version, download
+date, preprocessing applied). → ✅ `05_Code/PhD-HAR-Segmentation/data/DATA_MANIFEST.md`
+stub created with known facts + TODO fields to complete.
+
+## E. Round-1 carried items — status
+
+- §1 substantive proposal revisions (§1.7/§3.5/§3.6/§3.8) — ⬜ meeting decision
+- §4.2 dataset re-scoping (PAMAP2 demotion / Opportunity primary) — ⬜ meeting decision
+- §3.5 subsection renumbering (5.1–5.3) — ⬜ bundle with substantive edit
+- Mid-tier 2019–22 reference recency audit — ⬜ scheduled next revision cycle
+- P1 empirical ladder (LOSO / natural transitions / baselines / ablations) — ⬜ post-meeting program
+
+## Round-2 sequencing
+
+**Done today:** README refresh, execution-plan status block, pilot
+requirements.txt, data manifest stub, this audit — all committed to the private
+workspace repo.
+**Meeting:** unchanged (Phase B v1 vs pivot; dataset re-scope; substantive
+proposal edits sign-off).
+**Post-meeting:** P1 skeleton → execution-plan rebase → P1 ladder (weeks 1–4).
