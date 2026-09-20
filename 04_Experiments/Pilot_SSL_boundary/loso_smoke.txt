@@ -1,0 +1,13 @@
+fold 0 S1: GT=149 B0=0.068 CP=0.173 MTM=0.068 MMD2s=0.244 head=0.210 | k1=0.361 k2=0.353 k4=0.401 k7=0.405
+
+=== aggregate (mean±std AUPRC; chance 0.063) ===
+B0     AUPRC 0.068±0.000 oracleF1 0.105  p(B0)=nan
+CP     AUPRC 0.173±0.000 oracleF1 0.354  p(B0)=1.0000
+MTM    AUPRC 0.068±0.000 oracleF1 0.109  p(B0)=1.0000
+MMD2s  AUPRC 0.244±0.000 oracleF1 0.343  p(B0)=1.0000
+head   AUPRC 0.210±0.000 oracleF1 0.215  p(B0)=1.0000
+probe k=1: AUPRC 0.361±0.000 oracleF1 0.548 clsAcc 0.668
+probe k=2: AUPRC 0.353±0.000 oracleF1 0.579 clsAcc 0.625
+probe k=4: AUPRC 0.401±0.000 oracleF1 0.580 clsAcc 0.775
+probe k=7: AUPRC 0.405±0.000 oracleF1 0.619 clsAcc 0.828
+criteria: {'S1_probe7_robust': False, 'S2_k1_beats_MMD': True, 'S3_ordering': False}
