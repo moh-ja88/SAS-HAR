@@ -23,16 +23,19 @@
 
 ## 1. Project Overview
 
-**Framework name:** BASS-HAR (Boundary-Aware Self-Supervised HAR)
+**Framework name:** SAS-HAR (Self-Supervised Attention-Based Segmentation for HAR)
+(previously BASS-HAR — renamed Sep 2026 after pilot results refined the mechanism)
 
-**Core idea:** SSL operates on continuous IMU stream FIRST → prediction errors reveal activity boundaries → BRM (Boundary Refinement Module) denoises them → feedback loop sharpens both representations and boundaries → classifier outputs activities.
+**Core idea (REFINED Sep 20, 2026 — post-pilot):** SSL operates on continuous IMU stream → learns representations that separate activities sharply (94% linear-probe accuracy, cross-subject) → boundary evidence is extracted by **distributional contrast across time** on these representations (two-sided window comparison, trained heads, or light supervision) → refined into sharp boundaries → feedback loop improves both representations and boundaries → classifier outputs activities.
 
-**Research Gap:** No prior work uses SSL prediction errors to discover activity boundaries in wearable sensor data. OTAS demonstrated SSL-based boundary detection in video action segmentation only; adapting this to wearable sensors remains open.
+> **PILOT FINDING (Sep 20, 2026):** The naive hypothesis "SSL prediction errors spike at transitions" is **FALSIFIED** for reconstruction (MTM = chance; CP error F1 = 0.34). The boundary signal lives in **distributional contrast on SSL embeddings** (probe-contrast F1 0.72–0.77 with light supervision; unsupervised MMD = 4.5× chance AUPRC). The 0.28→0.74 supervision gap defines the Phase B design space. Naive Phase B self-training (v0) fails — see `04_Experiments/Pilot_SSL_boundary/RESULTS.md`.
 
-**3 Objectives (per supervisor, Aug 2026):**
-1. Boundary Detection — discover transitions using SSL prediction errors
-2. Label-Efficient Representation Learning — SSL on unlabeled continuous data
-3. Comprehensive Evaluation — multi-dataset, LOSO, comparisons with baselines
+**Research Gap:** No prior work uses SSL — of any paradigm — to detect activity boundaries in continuous wearable IMU streams. Nearest: CLaP (generic time series, 2025), SCOTT (supervised-contrastive CPD on HAR sensors, 2024), OTAS (video, 2023). Gap analysis: `02_Literature_Review/` (33+46 papers, critical addendum).
+
+**3 Objectives (per supervisor, Aug 2026; refined post-pilot Sep 20):**
+1. Boundary Detection — discover transitions via **distributional contrast on SSL representations** (not prediction errors — pilot falsified that)
+2. SSL reliance on unlabeled data — label-efficient representation learning
+3. Comparisons & model validation — multi-dataset, LOSO, baselines (CLaP, SCOTT, OTAS-adapted, SWL-Adapt, PELT/BOCPD)
 
 ---
 
